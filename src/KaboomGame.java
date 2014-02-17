@@ -73,7 +73,17 @@ public class KaboomGame extends Observable {
 				flaggedCell.setCellState(KaboomPieces.covered);
 			}
 			
+			this.setChanged();
+			this.notifyObservers();
 		}
+	}
+	
+	public void cheat()
+	{
+		this.board.createCheatBoard();
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }

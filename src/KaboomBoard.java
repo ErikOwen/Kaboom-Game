@@ -122,9 +122,23 @@ public class KaboomBoard extends AbstractTableModel {
 					checkForEmptyNeighbors(row, col, rDir, cDir, queue);
 				}
 			}
-			
-			
 		}
+	}
+	
+	public void createCheatBoard()
+	{
+		for(int rowIter = 0; rowIter < board.length; rowIter++)
+		{
+			for(int colIter = 0; colIter < board[0].length; colIter++)
+			{
+				board[rowIter][colIter] = new KaboomCell(KaboomPieces.empty);
+				board[rowIter][colIter].setUncovered();
+			}
+		}
+		
+		board[0][0] = new KaboomCell(KaboomPieces.bomb);
+		board[0][1] = new KaboomCell(KaboomPieces.covered);
+		board[0][1].setNumBombsNear(1);
 	}
 	
     /**
