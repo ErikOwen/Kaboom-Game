@@ -11,6 +11,7 @@ public class KaboomGame extends Observable {
 	private int boardSize, difficulty, boardNum, numMoves, flagCount, timeSeconds;
 	private KaboomBoard board;
 	private Timer timer;
+	private boolean gameOver, gameWon;
 	private static final int kMillisecondsPerSecond = 1000;
 	
 	public KaboomGame(int boardSize, int difficulty, int boardNum) {
@@ -20,6 +21,8 @@ public class KaboomGame extends Observable {
 		this.numMoves = 0;
 		this.flagCount = 0;
 		this.timeSeconds = 0;
+		this.gameOver = false;
+		this.gameWon = false;
 		
 		this.board = new KaboomBoard(this.boardSize, this.difficulty, this.boardNum);
 		
@@ -36,6 +39,29 @@ public class KaboomGame extends Observable {
 		this.timer.start();
 	}
 	
+	public void newGame(int boardSize, int difficulty, int boardNum)
+	{
+		this.boardSize = boardSize;
+		this.difficulty = difficulty;
+		this.boardNum = boardNum;
+		
+		this.numMoves = 0;
+		this.flagCount = 0;
+		this.timeSeconds = 0;
+		this.gameOver = false;
+		this.gameWon = false;
+		this.board = new KaboomBoard(this.boardSize, this.difficulty, this.boardNum);
+		this.timer.restart();
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void restart()
+	{
+		newGame(this.boardSize, this.difficulty, this.boardNum);
+	}
+	
 	public void takeTurn(int row, int col)
 	{
 		if(row > 0 && row < board.getRowCount() && col > 0 && col < board.getColumnCount() && board.getValueAt(row, col) == KaboomPieces.covered)
@@ -46,7 +72,7 @@ public class KaboomGame extends Observable {
 			if(chosenCell.isBomb())
 			{
 				this.timer.stop();
-				//TO DO: Signal game over
+				this.gameOver = true;
 			}
 			else
 			{
@@ -54,14 +80,35 @@ public class KaboomGame extends Observable {
 				{
 					this.board.uncoverNeighboringEmptyCells(row, col);
 				}
+				
+				this.gameWon = board.boardIsCleared();
 			}
+			
+			this.setChanged();
+			this.notifyObservers();
 		}
+	}
+	
+	public boolean isGameOver()
+	{
+		return this.gameOver;
+	}
+	
+	public boolean gameWon()
+	{
+		return this.gameWon;
+	}
+	
+	public int getTimerCount()
+	{
+		return this.timeSeconds;
 	}
 	
 	public void toggleFlag(int row, int col) {
 		if(row > 0 && row < board.getRowCount() && col > 0 && col < board.getColumnCount())
 		{
 			KaboomCell flaggedCell = ((KaboomCell)this.board.getValueAt(row, col));
+			
 			if(flaggedCell.getCellState() == KaboomPieces.covered)
 			{
 				this.flagCount++;
@@ -76,6 +123,14 @@ public class KaboomGame extends Observable {
 			this.setChanged();
 			this.notifyObservers();
 		}
+	}
+	
+	public void peek()
+	{
+		this.board.setToPeak();
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public void cheat()

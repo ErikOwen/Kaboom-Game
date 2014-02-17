@@ -141,6 +141,35 @@ public class KaboomBoard extends AbstractTableModel {
 		board[0][1].setNumBombsNear(1);
 	}
 	
+	public void setToPeak()
+	{
+		for(int rowIter = 0; rowIter < board.length; rowIter++)
+		{
+			for(int colIter = 0; colIter < board[0].length; colIter++)
+			{
+				board[rowIter][colIter].setUncovered();
+			}
+		}
+	}
+	
+	public boolean boardIsCleared()
+	{
+		boolean boardCleared = true;
+		
+		for(int rowIter = 0; rowIter < board.length && boardCleared; rowIter++)
+		{
+			for(int colIter = 0; colIter < board[0].length && boardCleared; colIter++)
+			{
+				if(board[rowIter][colIter].getCellState() == KaboomPieces.covered && !board[rowIter][colIter].isBomb())
+				{
+					boardCleared = false;
+				}
+			}
+		}
+		
+		return boardCleared;
+	}
+	
     /**
      * Getter method for the specified column name.
      * 
