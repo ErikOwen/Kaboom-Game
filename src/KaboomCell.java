@@ -3,13 +3,15 @@ public class KaboomCell {
 
 	private KaboomPieces cellState;
 	private boolean covered;
-	private int bombsNear;
+	private int bombsNear, row, col;
 	
-	public KaboomCell(KaboomPieces state)
+	public KaboomCell(KaboomPieces state, int row, int col)
 	{
 		this.cellState = state;
 		this.bombsNear = 0;
 		this.covered = true;
+		this.row = row;
+		this.col = col;
 	}
 	
 	public KaboomPieces getCellState()
@@ -32,6 +34,11 @@ public class KaboomCell {
 		this.covered = false;
 	}
 	
+	public void setCovered()
+	{
+		this.covered = true;
+	}
+	
 	public void setNumBombsNear(int numBombsNear)
 	{
 		this.bombsNear = numBombsNear;
@@ -40,5 +47,15 @@ public class KaboomCell {
 	public int getNumBombsNear()
 	{
 		return this.bombsNear;
+	}
+	
+	public int getRow()
+	{
+		return this.row;
+	}
+	
+	public int getColumn()
+	{
+		return this.col;
 	}
 }

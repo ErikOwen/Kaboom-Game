@@ -64,7 +64,7 @@ public class KaboomGame extends Observable {
 	
 	public void takeTurn(int row, int col)
 	{
-		if(row > 0 && row < board.getRowCount() && col > 0 && col < board.getColumnCount() && board.getValueAt(row, col) == KaboomPieces.covered)
+		if(row >= 0 && row < board.getRowCount() && col >= 0 && col < board.getColumnCount() && ((KaboomCell)board.getValueAt(row, col)).getCellState() == KaboomPieces.covered)
 		{
 			this.numMoves++;
 			KaboomCell chosenCell = (KaboomCell)board.getValueAt(row, col);
@@ -74,6 +74,7 @@ public class KaboomGame extends Observable {
 				this.timer.stop();
 				this.gameOver = true;
 				chosenCell.setCellState(KaboomPieces.bombHit);
+				this.board.setToPeak();
 			}
 			else
 			{
@@ -83,6 +84,10 @@ public class KaboomGame extends Observable {
 				}
 				
 				this.gameWon = board.boardIsCleared();
+				if(this.gameWon)
+				{
+					this.gameOver = true;
+				}
 			}
 			
 			this.setChanged();
@@ -126,24 +131,22 @@ public class KaboomGame extends Observable {
 	}
 	
 	public void toggleFlag(int row, int col) {
-		if(row > 0 && row < board.getRowCount() && col > 0 && col < board.getColumnCount())
+		KaboomCell flaggedCell = ((KaboomCell)this.board.getValueAt(row, col));
+		
+		if(flaggedCell.getCellState() == KaboomPieces.covered)
 		{
-			KaboomCell flaggedCell = ((KaboomCell)this.board.getValueAt(row, col));
-			
-			if(flaggedCell.getCellState() == KaboomPieces.covered)
-			{
-				this.flagCount++;
-				flaggedCell.setCellState(KaboomPieces.flagged);
-			}
-			else if(flaggedCell.getCellState() == KaboomPieces.flagged)
-			{
-				this.flagCount--;
-				flaggedCell.setCellState(KaboomPieces.covered);
-			}
-			
-			this.setChanged();
-			this.notifyObservers();
+			this.flagCount++;
+			flaggedCell.setCellState(KaboomPieces.flagged);
+			flaggedCell.setUncovered();
 		}
+		else if(flaggedCell.getCellState() == KaboomPieces.flagged)
+		{
+			this.flagCount--;
+			flaggedCell.setCovered();
+		}
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public void peek()

@@ -354,7 +354,7 @@ public class KaboomConsole implements Observer{
            
        dashedLine = dashedLine.concat("-\n");
        writer.write(dashedLine);
-       writer.write("1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs");
+       writer.write("1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs\n");
        writer.flush();
    }
    
@@ -369,17 +369,20 @@ public class KaboomConsole implements Observer{
 		   {
 			   if(game.gameWon())
 			   {
-				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! ");
+				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
 				   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
 				   writer.write("Save your time of " + timerString + "? (y/n)");
+				   writer.flush();
 				   
 				   if(scan.hasNext())
 				   {
 					   saveScoreResponse = scan.nextLine().trim().toLowerCase();
 					   if(saveScoreResponse.equals("y"))
 					   {
-						   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. ");
+						   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
 						   writer.write("Enter your name: ");
+						   writer.flush();
+						   
 						   userName = scan.nextLine();
 						   
 				           if(userName.length() > kMaxNameLength)
@@ -393,8 +396,9 @@ public class KaboomConsole implements Observer{
 			   }
 			   else
 			   {
-				   writer.write("-- Game Over --");
-				   writer.write("You lost.");
+				   writer.write("-- Game Over --\n");
+				   writer.write("You lost.\n");
+				   writer.flush();
 			   }
 		   }
 	   }
