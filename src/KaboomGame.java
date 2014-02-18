@@ -94,6 +94,11 @@ public class KaboomGame extends Observable {
 		return this.gameOver;
 	}
 	
+	public KaboomBoard getBoard()
+	{
+		return this.board;
+	}
+	
 	public boolean gameWon()
 	{
 		return this.gameWon;
