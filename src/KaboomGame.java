@@ -24,8 +24,6 @@ public class KaboomGame extends Observable {
 		this.gameOver = false;
 		this.gameWon = false;
 		
-		this.board = new KaboomBoard(this.boardSize, this.difficulty, this.boardNum);
-		
         ActionListener timerListener = new ActionListener()
         {   
 			@Override
@@ -37,6 +35,8 @@ public class KaboomGame extends Observable {
 		this.timer = new Timer(kMillisecondsPerSecond, timerListener);
 		this.timer.setInitialDelay(0);
 		this.timer.start();
+		
+		//newGame(this.boardSize, this.difficulty, this.boardNum);
 	}
 	
 	public void newGame(int boardSize, int difficulty, int boardNum)
@@ -73,6 +73,7 @@ public class KaboomGame extends Observable {
 			{
 				this.timer.stop();
 				this.gameOver = true;
+				chosenCell.setCellState(KaboomPieces.bombHit);
 			}
 			else
 			{
@@ -97,6 +98,21 @@ public class KaboomGame extends Observable {
 	public KaboomBoard getBoard()
 	{
 		return this.board;
+	}
+	
+	public int getMoveCount()
+	{
+		return this.numMoves;
+	}
+	
+	public int getFlagCount()
+	{
+		return this.flagCount;
+	}
+	
+	public int getNumBombs()
+	{
+		return this.board.getNumBombs();
 	}
 	
 	public boolean gameWon()

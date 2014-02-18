@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class KaboomBoard extends AbstractTableModel {
 
 	private KaboomCell[][] board;
-	private int boardSize, difficulty, boardNum;
+	private int boardSize, difficulty, boardNum, numBombs;
 	private String[] columnNames;
 	
 	public KaboomBoard(int boardSize, int difficulty, int boardNum)
@@ -15,8 +15,10 @@ public class KaboomBoard extends AbstractTableModel {
 		this.boardSize = boardSize;
 		this.difficulty = difficulty;
 		this.boardNum = boardNum;
-		
+
 		this.generateBoard();
+		
+		this.columnNames = new String[boardSize];
 		
         for(String str : this.columnNames)
         {
@@ -26,14 +28,14 @@ public class KaboomBoard extends AbstractTableModel {
 	
 	private void generateBoard()
 	{
-		int numBombs = (this.boardSize * this.boardSize) / this.difficulty;
+		this.numBombs = (this.boardSize * this.boardSize) / this.difficulty;
 		Random generator = new Random(boardNum);
 		
 		this.board = new KaboomCell[boardSize][boardSize];
 		
 		for(int iter = 0; iter < numBombs; iter++)
 		{
-			board[generator.nextInt()][generator.nextInt()] = new KaboomCell(KaboomPieces.bomb);
+			board[generator.nextInt(boardSize)][generator.nextInt(boardSize)] = new KaboomCell(KaboomPieces.bomb);
 		}
 		
 		for(int rowIter = 0; rowIter < board.length; rowIter++)
@@ -47,6 +49,11 @@ public class KaboomBoard extends AbstractTableModel {
 			}
 		}
 		
+	}
+	
+	public int getNumBombs()
+	{
+		return this.numBombs;
 	}
 	
 	private void setCellState(int row, int col)

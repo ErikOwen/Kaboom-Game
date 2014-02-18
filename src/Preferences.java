@@ -32,10 +32,10 @@ public class Preferences
     	ini = new Ini();
     	ini.load(new FileReader(new File(kPreferencesPath)));
         this.boardSection = (Ini.Section)ini.get("Board Size");
-        this.boardSize = Integer.parseInt((String)boardSection.get("small"));
+//        this.boardSize = Integer.parseInt((String)boardSection.get("small"));
         
         this.difficultySection = (Ini.Section)ini.get("Difficulty");
-    	this.difficulty = Integer.parseInt((String)difficultySection.get("easy"));
+//    	this.difficulty = Integer.parseInt((String)difficultySection.get("easy"));
     }
     
     /**
@@ -43,9 +43,14 @@ public class Preferences
      * 
      * @return int representing the desired board size.
      */
-    public int getBoardSize()
+    public int getDefaultBoardSize()
     {
-    	return this.boardSize;
+    	return Integer.parseInt((String)boardSection.get("small"));
+    }
+    
+    public Ini.Section getBoardSizes()
+    {
+    	return this.boardSection;
     }
     
     /**
@@ -54,70 +59,75 @@ public class Preferences
      * @return int representing the number of bombs
      * to be placed on the board.
      */
-    public int getDifficulty()
+    public int getDefaultDifficulty()
     {
-    	return this.difficulty;
+    	return Integer.parseInt((String)difficultySection.get("easy"));
     }
     
-    /**
-     * Changes the desired board size
-     * 
-     * @param size indicating the desired size
-     * @return boolean indicating if the board size has been
-     * switched successfully.
-     */
-    public boolean setBoardSize(String size)
-    {   
-    	boolean success = true;
-    	
-    	if(size.equals("small"))
-    	{
-    		this.boardSize = Integer.parseInt((String)boardSection.get("small"));
-    	}
-    	else if (size.equals("medium"))
-    	{
-    		this.boardSize = Integer.parseInt((String)boardSection.get("medium"));
-    	}
-    	else if (size.equals("large"))
-    	{
-    		this.boardSize = Integer.parseInt((String)boardSection.get("large"));
-    	}
-    	else
-    	{
-    		success = false;
-    	}
-        
-        return success;
+    public Ini.Section getDifficulties()
+    {
+    	return this.difficultySection;
     }
     
-    /**
-     * Changes the desired difficulty of the Kaboom game
-     * 
-     * @param difficulty indicating the desired difficulty
-     * @return boolean indicating if the game's difficulty has been
-     * switched successfully.
-     */
-    public boolean setDifficulty(String desiredDifficulty)
-    {   
-    	boolean success = true;
-    	
-    	if(desiredDifficulty.equals("easy"))
-    	{
-    		this.difficulty = Integer.parseInt((String)boardSection.get("small"));
-    	}
-    	else if (desiredDifficulty.equals("moderate"))
-    	{
-    		this.difficulty = Integer.parseInt((String)boardSection.get("medium"));
-    	}
-    	else if (desiredDifficulty.equals("hard"))
-    	{
-    		this.difficulty = Integer.parseInt((String)boardSection.get("large"));
-    	}
-    	else
-    	{
-    		success = false;
-    	}
-        
-        return success;
-    }
+//    /**
+//     * Changes the desired board size
+//     * 
+//     * @param size indicating the desired size
+//     * @return boolean indicating if the board size has been
+//     * switched successfully.
+//     */
+//    public boolean setBoardSize(String size)
+//    {   
+//    	boolean success = true;
+//    	
+//    	if(size.equals("small"))
+//    	{
+//    		this.boardSize = Integer.parseInt((String)boardSection.get("small"));
+//    	}
+//    	else if (size.equals("medium"))
+//    	{
+//    		this.boardSize = Integer.parseInt((String)boardSection.get("medium"));
+//    	}
+//    	else if (size.equals("large"))
+//    	{
+//    		this.boardSize = Integer.parseInt((String)boardSection.get("large"));
+//    	}
+//    	else
+//    	{
+//    		success = false;
+//    	}
+//        
+//        return success;
+//    }
+//    
+//    /**
+//     * Changes the desired difficulty of the Kaboom game
+//     * 
+//     * @param difficulty indicating the desired difficulty
+//     * @return boolean indicating if the game's difficulty has been
+//     * switched successfully.
+//     */
+//    public boolean setDifficulty(String desiredDifficulty)
+//    {   
+//    	boolean success = true;
+//    	
+//    	if(desiredDifficulty.equals("easy"))
+//    	{
+//    		this.difficulty = Integer.parseInt((String)boardSection.get("small"));
+//    	}
+//    	else if (desiredDifficulty.equals("moderate"))
+//    	{
+//    		this.difficulty = Integer.parseInt((String)boardSection.get("medium"));
+//    	}
+//    	else if (desiredDifficulty.equals("hard"))
+//    	{
+//    		this.difficulty = Integer.parseInt((String)boardSection.get("large"));
+//    	}
+//    	else
+//    	{
+//    		success = false;
+//    	}
+//        
+//        return success;
+//    }
 }
