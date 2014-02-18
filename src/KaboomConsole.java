@@ -151,8 +151,8 @@ public class KaboomConsole implements Observer{
 		   this.game.cheat();
 		   break;
 	   case kAbout:
-		   writer.write("-- About --");
-		   writer.write("Kaboom Game by Erik Owen");
+		   writer.write("-- About --\n");
+		   writer.write("Kaboom Game by Erik Owen\n");
 		   writer.flush();
 		   break;
 	   case kQuit:
@@ -213,10 +213,11 @@ public class KaboomConsole implements Observer{
 		   difficultyString += "(" + startChoice++ + ") " + key + " = " + difficultiesSection.get(key) + "  ";
 	   }
 	
-	   writer.write("[Board Size]");
-	   writer.write(boardSizeString);
-	   writer.write("[Difficulty]");
-	   writer.write(difficultyString);
+	   writer.write("[Board Size]\n");
+	   writer.write(boardSizeString + "\n");
+	   writer.write("[Difficulty]\n");
+	   writer.write(difficultyString + "\n");
+	   writer.flush();
 	   
 	   if(scan.hasNext())
 	   {
@@ -311,9 +312,9 @@ public class KaboomConsole implements Observer{
        /*Creates the top row of numbers on the board*/
        for(int colIter = 1; colIter < game.getBoard().getColumnCount(); colIter++)
        {
-           colString = colString.concat(colIter % deciSystem + "  ");
+           colString = colString.concat((colIter % deciSystem) + "  ");
        }
-       colString = colString.concat(game.getBoard().getColumnCount() + "\n");
+       colString = colString.concat((game.getBoard().getColumnCount() % deciSystem) + "\n");
        writer.write(colString);
        
        char curLetter = 'A';
