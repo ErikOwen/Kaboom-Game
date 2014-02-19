@@ -28,16 +28,21 @@ public class KaboomBoard extends AbstractTableModel {
 	
 	private void generateBoard()
 	{
-		this.numBombs = (this.boardSize * this.boardSize) / this.difficulty;
+		int numGeneratedBombs = (this.boardSize * this.boardSize) / this.difficulty;
 		Random generator = new Random(boardNum);
 		
 		this.board = new KaboomCell[boardSize][boardSize];
 		
-		for(int iter = 0; iter < numBombs; iter++)
+		for(int iter = 0; iter < numGeneratedBombs; iter++)
 		{
 			int curRow = generator.nextInt(boardSize);
 			int curCol = generator.nextInt(boardSize);
-			board[curRow][curCol] = new KaboomCell(KaboomPieces.bomb, curRow, curCol);
+			
+			if(board[curRow][curCol] == null)
+			{
+				board[curRow][curCol] = new KaboomCell(KaboomPieces.bomb, curRow, curCol);
+				this.numBombs++;
+			}
 		}
 		
 		for(int rowIter = 0; rowIter < board.length; rowIter++)
@@ -103,8 +108,20 @@ public class KaboomBoard extends AbstractTableModel {
 			{
 				if(col + cDir >= 0 && col + cDir < board[0].length)
 				{
-					if(board[row + rDir][col + cDir] != null && board[row + rDir][col + cDir].getCellState() == KaboomPieces.covered && board[row + rDir][col + cDir].getNumBombsNear() == 0) {
-						queue.add((KaboomCell)board[row + rDir][col + cDir]);
+//					if(board[row + rDir][col + cDir] != null && board[row + rDir][col + cDir].getCellState() == KaboomPieces.covered && board[row + rDir][col + cDir].getNumBombsNear() == 0) {
+//						queue.add((KaboomCell)board[row + rDir][col + cDir]);
+//					}
+					
+					if(board[row + rDir][col + cDir] != null && board[row + rDir][col + cDir].getCellState() == KaboomPieces.covered && !board[row + rDir][col + cDir].isBomb())
+					{
+						if(board[row + rDir][col + cDir].getNumBombsNear() == 0)
+						{
+							queue.add((KaboomCell)board[row + rDir][col + cDir]);
+						}
+						else
+						{
+							board[row + rDir][col + cDir].setUncovered();
+						}
 					}
 				}
 			}
@@ -113,8 +130,8 @@ public class KaboomBoard extends AbstractTableModel {
 	
 	public void uncoverNeighboringEmptyCells(int row, int col)
 	{
-		//int[] rowDirections = {-1, 0, 1};
-		//int[] colDirections = {-1, 0, 1};
+		int[] rowDirections = {-1, 0, 1};
+		int[] colDirections = {-1, 0, 1};
 		KaboomCell curCell;
 		LinkedList<KaboomCell> queue = new LinkedList<KaboomCell>();
 		queue.add((KaboomCell)this.getValueAt(row, col));
@@ -123,11 +140,19 @@ public class KaboomBoard extends AbstractTableModel {
 		{
 			curCell = queue.remove();
 			curCell.setUncovered();
+
+			for(int rDir : rowDirections)
+			{
+				for(int cDir : colDirections)
+				{
+					checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), rDir, cDir, queue);
+				}
+			}
 			
-			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 1, 0, queue);
-			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), -1, 0, queue);
-			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 0, 1, queue);
-			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 0, -1, queue);
+//			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 1, 0, queue);
+//			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), -1, 0, queue);
+//			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 0, 1, queue);
+//			checkForEmptyNeighbors(curCell.getRow(), curCell.getColumn(), 0, -1, queue);
 		}
 	}
 	

@@ -106,4 +106,16 @@ public class HighScores
         
         return highScoresString;
     }
+    
+    public void eraseHighScores()
+    {
+        try
+        {
+            File file = new File("kaboom/halloffame.ser");
+            file.delete();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

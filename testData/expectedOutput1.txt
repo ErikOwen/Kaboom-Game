@@ -1,0 +1,594 @@
+Kaboom - board 2996
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+kaboom/halloffame.ser deleted.
+Select Game: Enter desired game number (1 - 5000):
+Kaboom - board 7
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 7
+Moves: 1   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  1            
+ B:  -  -  -  2  1     1  1
+ C:  -  -  -  -  1     1  -
+ D:  -  -  -  -  1     1  -
+ E:  -  -  -  -  2  2  1  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 7
+Moves: 2   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:     1  -  1            
+ B:     1  2  2  1     1  1
+ C:        1  -  1     1  -
+ D:        1  1  1     1  -
+ E:  1  1     1  2  2  1  -
+ F:  -  1     1  -  -  -  -
+ G:  1  1     1  4  -  -  -
+ H:              2  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 7
+Moves: 3   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:     1  -  1            
+ B:     1  2  2  1     1  1
+ C:        1  -  1     1  -
+ D:        1  1  1     1  1
+ E:  1  1     1  2  2  1   
+ F:  -  1     1  -  -  2   
+ G:  1  1     1  4  -  3   
+ H:              2  -  2   
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Game Won Notification: Game 7 Cleared! 
+Save your time of 0:00? (y/n)
+Name Entry: Your score of 0:00 will be entered into the Hall of Fame. 
+Enter your name: 
+-- High Scores --
+      0:00    Joe Bob             
+
+Kaboom - board 8
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 1   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  *  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+-- Game Over --
+You lost.
+Kaboom - board 8
+Moves: 1   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  *  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 1   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 2   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 0   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 8
+Moves: 1   Flags: 0/8  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Game Won Notification: Game 8 Cleared! 
+Save your time of 0:00? (y/n)
+Name Entry: Your score of 0:00 will be entered into the Hall of Fame. 
+Enter your name: 
+-- High Scores --
+      0:00    Joe Bob             
+      0:00    Sally Mae           
+
+Kaboom - board 9
+Moves: 0   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+-- About --
+Kaboom Game by Your Name
+Kaboom - board 9
+Moves: 1   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 2   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  B  2  1  1  1  1
+ E:  B  3  2  3  B  1  1  *
+ F:  1  2  B  2  1  2  2  2
+ G:  1  2  2  1     1  B  1
+ H:  1  B  1        1  1  1
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+-- Game Over --
+You lost.
+Kaboom - board 9
+Moves: 0   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 1   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 2   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  1  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 3   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  1  -
+ F:  -  -  -  -  -  -  2  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 4   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  1  -
+ F:  -  -  -  -  -  -  2  2
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 4   Flags: 1/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  -  2  1  1  1  1
+ E:  -  -  -  -  -  -  1  @
+ F:  -  -  -  -  -  -  2  2
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 4   Flags: 2/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  @  2  1  1  1  1
+ E:  -  -  -  -  -  -  1  @
+ F:  -  -  -  -  -  -  2  2
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 4   Flags: 2/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 5   Flags: 2/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Game Won Notification: Game 9 Cleared! 
+Save your time of 0:00? (y/n)
+Kaboom - board 9
+Moves: 5   Flags: 2/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 6   Flags: 2/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  1                  
+ B:                        
+ C:                        
+ D:                        
+ E:                        
+ F:                        
+ G:                        
+ H:                        
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+[Board Size]
+(a) small = 8  (b) medium = 10  (c) large = 12  
+[Difficulty]
+(d) easy = 8  (e) moderate = 6  (f) hard = 4  
+Your choice?
+Kaboom - board 9
+Moves: 0   Flags: 0/12  0:00
+     1  2  3  4  5  6  7  8  9  0
+ A:  -  -  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -
+ --------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 1   Flags: 0/12  0:00
+     1  2  3  4  5  6  7  8  9  0
+ A:                 1  -  -  -  -
+ B:                 1  -  -  -  -
+ C:        1  1  1  2  -  -  -  -
+ D:        1  -  -  -  -  -  -  -
+ E:        1  -  -  -  -  -  -  -
+ F:     1  1  -  -  -  -  -  -  -
+ G:     1  -  -  -  -  -  -  -  -
+ H:     1  1  1  -  -  -  -  -  -
+ I:           1  -  -  -  -  -  -
+ J:           1  -  -  -  -  -  -
+ --------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+[Board Size]
+(a) small = 8  (b) medium = 10  (c) large = 12  
+[Difficulty]
+(d) easy = 8  (e) moderate = 6  (f) hard = 4  
+Your choice?
+Kaboom - board 9
+Moves: 0   Flags: 0/18  0:00
+     1  2  3  4  5  6  7  8  9  0  1  2
+ A:  -  -  -  -  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -  -  -
+ K:  -  -  -  -  -  -  -  -  -  -  -  -
+ L:  -  -  -  -  -  -  -  -  -  -  -  -
+ --------------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 1   Flags: 0/18  0:00
+     1  2  3  4  5  6  7  8  9  0  1  2
+ A:  -  -  -  -  -  1                  
+ B:  -  -  -  -  -  2           1  1  1
+ C:  -  -  -  -  -  2           1  -  -
+ D:  -  -  -  -  -  1  1  1  1  1  -  -
+ E:  -  -  -  -  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -  -  -
+ K:  -  -  -  -  -  -  -  -  -  -  -  -
+ L:  -  -  -  -  -  -  -  -  -  -  -  -
+ --------------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 2   Flags: 0/18  0:00
+     1  2  3  4  5  6  7  8  9  0  1  2
+ A:  -  -  -  -  -  1                  
+ B:  -  -  -  -  -  2           1  1  1
+ C:  -  -  -  -  -  2           1  -  -
+ D:  -  -  -  -  -  1  1  1  1  1  1  1
+ E:  -  -  -  -  -  -  -  -  1         
+ F:  -  -  -  -  -  -  -  -  2  1      
+ G:  -  -  -  -  -  -  -  -  -  2  1  1
+ H:  -  -  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -  -  -
+ K:  -  -  -  -  -  -  -  -  -  -  -  -
+ L:  -  -  -  -  -  -  -  -  -  -  -  -
+ --------------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 2   Flags: 1/18  0:00
+     1  2  3  4  5  6  7  8  9  0  1  2
+ A:  -  -  -  -  -  1                  
+ B:  -  -  -  -  -  2           1  1  1
+ C:  -  -  -  -  -  2           1  @  -
+ D:  -  -  -  -  -  1  1  1  1  1  1  1
+ E:  -  -  -  -  -  -  -  -  1         
+ F:  -  -  -  -  -  -  -  -  2  1      
+ G:  -  -  -  -  -  -  -  -  -  2  1  1
+ H:  -  -  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -  -  -
+ K:  -  -  -  -  -  -  -  -  -  -  -  -
+ L:  -  -  -  -  -  -  -  -  -  -  -  -
+ --------------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+[Board Size]
+(a) small = 8  (b) medium = 10  (c) large = 12  
+[Difficulty]
+(d) easy = 8  (e) moderate = 6  (f) hard = 4  
+Your choice?
+Kaboom - board 9
+Moves: 0   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 0   Flags: 0/7  0:00
+     1  2  3  4  5  6  7  8
+ A:                        
+ B:                        
+ C:     1  1  1            
+ D:  1  2  B  2  1  1  1  1
+ E:  B  3  2  3  B  1  1  B
+ F:  1  2  B  2  1  2  2  2
+ G:  1  2  2  1     1  B  1
+ H:  1  B  1        1  1  1
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+[Board Size]
+(a) small = 8  (b) medium = 10  (c) large = 12  
+[Difficulty]
+(d) easy = 8  (e) moderate = 6  (f) hard = 4  
+Your choice?
+Kaboom - board 9
+Moves: 0   Flags: 0/15  0:00
+     1  2  3  4  5  6  7  8
+ A:  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 0   Flags: 0/15  0:00
+     1  2  3  4  5  6  7  8
+ A:        1  B  2  1  1   
+ B:        1  1  3  B  3  1
+ C:  1  2  1  1  3  B  B  1
+ D:  B  3  B  2  3  B  4  2
+ E:  B  4  2  3  B  3  3  B
+ F:  1  2  B  2  1  3  B  3
+ G:  1  2  2  1     2  B  3
+ H:  1  B  1        1  2  B
+ --------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+[Board Size]
+(a) small = 8  (b) medium = 10  (c) large = 12  
+[Difficulty]
+(d) easy = 8  (e) moderate = 6  (f) hard = 4  
+Your choice?
+Kaboom - board 9
+Moves: 0   Flags: 0/16  0:00
+     1  2  3  4  5  6  7  8  9  0
+ A:  -  -  -  -  -  -  -  -  -  -
+ B:  -  -  -  -  -  -  -  -  -  -
+ C:  -  -  -  -  -  -  -  -  -  -
+ D:  -  -  -  -  -  -  -  -  -  -
+ E:  -  -  -  -  -  -  -  -  -  -
+ F:  -  -  -  -  -  -  -  -  -  -
+ G:  -  -  -  -  -  -  -  -  -  -
+ H:  -  -  -  -  -  -  -  -  -  -
+ I:  -  -  -  -  -  -  -  -  -  -
+ J:  -  -  -  -  -  -  -  -  -  -
+ --------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+Kaboom - board 9
+Moves: 0   Flags: 0/16  0:00
+     1  2  3  4  5  6  7  8  9  0
+ A:           1  1  2  1  2  1  1
+ B:           1  B  2  B  3  B  2
+ C:        1  2  2  3  3  5  B  2
+ D:        1  B  1  1  B  B  2  1
+ E:        1  1  1  1  2  3  2  1
+ F:  1  2  1  1     1  1  3  B  2
+ G:  B  2  B  1     1  B  3  B  2
+ H:  1  2  1  1  1  2  2  2  1  1
+ I:           1  2  B  3  2  1   
+ J:           1  B  3  B  B  1   
+ --------------------------------
+1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs

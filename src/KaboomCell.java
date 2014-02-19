@@ -2,7 +2,7 @@
 public class KaboomCell {
 
 	private KaboomPieces cellState;
-	private boolean covered;
+	private boolean covered, flagged;
 	private int bombsNear, row, col;
 	
 	public KaboomCell(KaboomPieces state, int row, int col)
@@ -10,6 +10,7 @@ public class KaboomCell {
 		this.cellState = state;
 		this.bombsNear = 0;
 		this.covered = true;
+		this.flagged = false;
 		this.row = row;
 		this.col = col;
 	}
@@ -32,11 +33,27 @@ public class KaboomCell {
 	public void setUncovered()
 	{
 		this.covered = false;
+		this.flagged = false;
 	}
 	
 	public void setCovered()
 	{
 		this.covered = true;
+	}
+	
+	public void setFlagged()
+	{
+		this.flagged = true;
+	}
+	
+	public void setUnflagged()
+	{
+		this.flagged = false;
+	}
+	
+	public boolean isFlagged()
+	{
+		return this.flagged;
 	}
 	
 	public void setNumBombsNear(int numBombsNear)

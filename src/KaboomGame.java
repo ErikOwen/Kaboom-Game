@@ -133,16 +133,18 @@ public class KaboomGame extends Observable {
 	public void toggleFlag(int row, int col) {
 		KaboomCell flaggedCell = ((KaboomCell)this.board.getValueAt(row, col));
 		
-		if(flaggedCell.getCellState() == KaboomPieces.covered)
+		if(!flaggedCell.isFlagged())
 		{
 			this.flagCount++;
-			flaggedCell.setCellState(KaboomPieces.flagged);
-			flaggedCell.setUncovered();
+			//flaggedCell.setCellState(KaboomPieces.flagged);
+			flaggedCell.setFlagged();
+			//flaggedCell.setUncovered();
 		}
-		else if(flaggedCell.getCellState() == KaboomPieces.flagged)
+		else/* if(flaggedCell.getCellState() == KaboomPieces.flagged)*/
 		{
 			this.flagCount--;
-			flaggedCell.setCovered();
+			flaggedCell.setUnflagged();
+			//flaggedCell.setCovered();
 		}
 		
 		this.setChanged();

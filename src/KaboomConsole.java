@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -14,6 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.ini4j.Ini;
@@ -32,7 +34,7 @@ public class KaboomConsole implements Observer{
 		kQuit = 8, kPreferences = 9, kNumOptions = 9, kSmallBoard = 8,
 		kMediumBoard = 10, kLargeBoard = 12, kEasyDifficulty = 8, kModerateDifficulty = 6,
 		kHardDifficulty = 4, kCharToInt = 65, secondsInAMin = 60, deciSystem = 10,
-		kMaxNameLength = 20;
+		kMaxNameLength = 20, kHiddenEraseHighScores = 0;
 	
     /** Entry point for the application.
     *
@@ -89,7 +91,7 @@ public class KaboomConsole implements Observer{
    {
 	   this.game.newGame(boardPrefSize, boardDifficulty, boardNum);
 	   String userInput = "";
-	   int userChoice = 0;
+	   int userChoice = -1;
 	   //Scanner scan = new Scanner(this.reader);
 	   
 	   while(userChoice != kQuit && scan.hasNext())
@@ -121,6 +123,9 @@ public class KaboomConsole implements Observer{
    {
 	   switch(optionNumber)
 	   {
+	   case kHiddenEraseHighScores:
+		   this.hallOfFame.eraseHighScores();
+		   break;
 	   case kRestart:
 		   this.game.restart();
 		   break;
@@ -193,12 +198,28 @@ public class KaboomConsole implements Observer{
    private void getNewPreferences() throws IOException
    {
 	   String userInput = "";
-	   Ini.Section boardSizeSection = this.prefs.getBoardSizes();
-	   Ini.Section difficultiesSection = this.prefs.getDifficulties();
+	   final Ini.Section boardSizeSection = this.prefs.getBoardSizes();
+	   final Ini.Section difficultiesSection = this.prefs.getDifficulties();
 	   char startChoice = 'a';
-	   SortedSet<String> boardSizeKeys = new TreeSet<String>(boardSizeSection.keySet());
-	   SortedSet<String> difficultyKeys = new TreeSet<String>(difficultiesSection.keySet());
-	   Map<Character, String> choiceMap = new HashMap<Character, String>();
+	   
+	   SortedSet<String> boardSizeKeys = new TreeSet<String>(new Comparator<String>() {
+		   public int compare(String s, String s2)
+		   {
+			   return Integer.parseInt(boardSizeSection.get(s)) - Integer.parseInt(boardSizeSection.get(s2));
+		   }
+	   });
+	   boardSizeKeys.addAll(boardSizeSection.keySet());
+	   
+	   SortedSet<String> difficultyKeys = new TreeSet<String>(new Comparator<String>() {
+		   public int compare(String s, String s2)
+		   {
+			   return Integer.parseInt(difficultiesSection.get(s2)) - Integer.parseInt(difficultiesSection.get(s));
+		   }
+	   });
+	   
+	   difficultyKeys.addAll(difficultiesSection.keySet());
+	   
+	   Map<Character, String> choiceMap = new TreeMap<Character, String>();
 	   String boardSizeString = "", difficultyString = "";
 	   
 	   for(String key : boardSizeKeys)
@@ -217,6 +238,7 @@ public class KaboomConsole implements Observer{
 	   writer.write(boardSizeString + "\n");
 	   writer.write("[Difficulty]\n");
 	   writer.write(difficultyString + "\n");
+	   writer.write("Your choice?\n");
 	   writer.flush();
 	   
 	   if(scan.hasNext())
@@ -274,7 +296,7 @@ public class KaboomConsole implements Observer{
    {
 	   Character retChar = ' ';
 	   
-	   if(cell.getCellState() == KaboomPieces.flagged)
+	   if(cell.isFlagged()/*() == KaboomPieces.flagged*/)
 	   {
 		   retChar = '@';
 	   }
@@ -372,7 +394,7 @@ public class KaboomConsole implements Observer{
 			   {
 				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
 				   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
-				   writer.write("Save your time of " + timerString + "? (y/n)");
+				   writer.write("Save your time of " + timerString + "? (y/n)\n");
 				   writer.flush();
 				   
 				   if(scan.hasNext())
