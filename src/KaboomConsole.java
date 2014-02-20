@@ -5,15 +5,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -31,10 +28,9 @@ public class KaboomConsole implements Observer{
 	private KaboomGame game;
 	private static final int kNumBoards = 5000, kRestart = 1, kNewGame = 2,
 		kSelectGame = 3, kHighScores = 4, kPeek = 5, kCheat = 6, kAbout = 7,
-		kQuit = 8, kPreferences = 9, kNumOptions = 9, kSmallBoard = 8,
-		kMediumBoard = 10, kLargeBoard = 12, kEasyDifficulty = 8, kModerateDifficulty = 6,
-		kHardDifficulty = 4, kCharToInt = 65, secondsInAMin = 60, deciSystem = 10,
-		kMaxNameLength = 20, kHiddenEraseHighScores = 0;
+		kQuit = 8, kPreferences = 9, kNumOptions = 9, kCharToInt = 65,
+		secondsInAMin = 60, deciSystem = 10, kMaxNameLength = 20,
+		kHiddenEraseHighScores = 0;
 	
     /** Entry point for the application.
     *
@@ -93,14 +89,18 @@ public class KaboomConsole implements Observer{
 	   String userInput = "";
 	   int userChoice = -1;
 	   
+	   /*Reads input until quit is chosen or there is no more input left*/
 	   while(userChoice != kQuit && scan.hasNext())
 	   {
 		   userInput = scan.nextLine().trim();
 		   try
 		   {
+			   /*If length is 1 then user is choosing an option*/
 			   if(userInput.length() == 1)
 			   {
 				   userChoice = Integer.parseInt(userInput);
+				   
+				   /*Executes option if it is in valid option range*/
 				   if(userChoice >= 0 && userChoice <= kNumOptions)
 				   {
 					   executeOption(userChoice);
@@ -118,8 +118,14 @@ public class KaboomConsole implements Observer{
 	   }
    }
    
+   /**
+    * Executes the desired option passed in.
+    * @param optionNumber the desired option
+    * @throws IOException thrown by the writer
+    */
    private void executeOption(int optionNumber) throws IOException
    {
+	   /*Determines which option is chosen*/
 	   switch(optionNumber)
 	   {
 	   case kHiddenEraseHighScores:
@@ -172,6 +178,12 @@ public class KaboomConsole implements Observer{
 	   }
    }
    
+   /**
+    * Selects a board specified by the user
+    * 
+    * @param scan the scanner used to read input
+    * @throws IOException thrown by the writer
+    */
    private void selectGame(Scanner scan) throws IOException
    {
        String boardNumberString = "-1";
@@ -196,6 +208,12 @@ public class KaboomConsole implements Observer{
        }
    }
    
+   /**
+    * Gets new preferences specified by the user: either new board size of
+    * difficulty.
+    * 
+    * @throws IOException thrown by the writer
+    */
    private void getNewPreferences() throws IOException
    {
 	   String userInput = "";
@@ -203,38 +221,47 @@ public class KaboomConsole implements Observer{
 	   final Ini.Section difficultiesSection = this.prefs.getDifficulties();
 	   char startChoice = 'a';
 	   
-	   SortedSet<String> boardSizeKeys = new TreeSet<String>(new Comparator<String>() {
+	   SortedSet<String> boardSizeKeys = new TreeSet<String>(
+	       new Comparator<String>() {
+	       /*Compares two strings*/
 		   public int compare(String s, String s2)
 		   {
-			   return Integer.parseInt(boardSizeSection.get(s)) - Integer.parseInt(boardSizeSection.get(s2));
+			   return Integer.parseInt(boardSizeSection.get(s)) -
+			       Integer.parseInt(boardSizeSection.get(s2));
 		   }
 	   });
 	   boardSizeKeys.addAll(boardSizeSection.keySet());
 	   
-	   //could be wrong
-	   this.boardPrefSize = Integer.parseInt(boardSizeSection.get(boardSizeKeys.first()));
+	   this.boardPrefSize = Integer.parseInt(
+	       boardSizeSection.get(boardSizeKeys.first()));
 	   
-	   SortedSet<String> difficultyKeys = new TreeSet<String>(new Comparator<String>() {
+	   SortedSet<String> difficultyKeys = new TreeSet<String>(
+	       new Comparator<String>() {
+	       /*Compares two strings*/
 		   public int compare(String s, String s2)
 		   {
-			   return Integer.parseInt(difficultiesSection.get(s2)) - Integer.parseInt(difficultiesSection.get(s));
+			   return Integer.parseInt(difficultiesSection.get(s2)) - 
+			       Integer.parseInt(difficultiesSection.get(s));
 		   }
 	   });
 	   
 	   difficultyKeys.addAll(difficultiesSection.keySet());
-	   
-	   //could be wrong
+
 	   this.boardDifficulty = Integer.parseInt(difficultiesSection.get(difficultyKeys.first()));
 	   
 	   Map<Character, String> choiceMap = new TreeMap<Character, String>();
 	   String boardSizeString = "", difficultyString = "";
 	   
+	   /*Iterates through the different board size options and creates a key
+	    of the option number to the board size*/
 	   for(String key : boardSizeKeys)
 	   {
 		   choiceMap.put(startChoice, key);
 		   boardSizeString += "(" + startChoice++ + ") " + key + " = " + boardSizeSection.get(key) + "  ";
 	   }
 	   
+	   /*Iterates through the different difficulty options and creates a key
+	    of the option number to the difficulty*/
 	   for(String key : difficultyKeys)
 	   {
 		   choiceMap.put(startChoice, key);
@@ -248,21 +275,30 @@ public class KaboomConsole implements Observer{
 	   writer.write("Your choice?\n");
 	   writer.flush();
 	   
+	   /*Determines if there is any more input left to read in*/
 	   if(scan.hasNext())
 	   {
 		   userInput = scan.nextLine().trim().toLowerCase();
 		   
+		   /*Makes sure the user input is valid length*/
 		   if(userInput.length() <= 2)
 		   {
+			   /*Iterates through  the characters of the user input*/
 			   for(char curPos : userInput.toCharArray())
 			   {
-				   if(choiceMap.containsKey(curPos) && boardSizeSection.containsKey(choiceMap.get(curPos)))
+				   /*Determines if the user's choice is a valid option*/
+				   if(choiceMap.containsKey(curPos) &&
+				       boardSizeSection.containsKey(choiceMap.get(curPos)))
 				   {
-					   this.boardPrefSize = Integer.parseInt(boardSizeSection.get(choiceMap.get(curPos)));
+					   this.boardPrefSize = Integer.parseInt(
+					       boardSizeSection.get(choiceMap.get(curPos)));
 				   }
-				   else if(choiceMap.containsKey(curPos) && difficultiesSection.containsKey(choiceMap.get(curPos)))
+				   /*Determines if the user's choice is a valid option*/
+				   else if(choiceMap.containsKey(curPos) && 
+				       difficultiesSection.containsKey(choiceMap.get(curPos)))
 				   {
-					   this.boardDifficulty = Integer.parseInt(difficultiesSection.get(choiceMap.get(curPos)));
+					   this.boardDifficulty = Integer.parseInt(
+					       difficultiesSection.get(choiceMap.get(curPos)));
 				   }
 			   }
 		   }
@@ -271,12 +307,18 @@ public class KaboomConsole implements Observer{
 	   this.game.newGame(boardPrefSize, boardDifficulty, boardNum);
    }
    
+   /**
+    * Makes a move in the kaboom game.
+    * 
+    * @param move the move specified by the user's string
+    */
    private void makeMove(String move)
    {
 	   boolean addFlag = false;
 	   int row, col;
 	   move = move.toLowerCase();
 	   
+	   /*Determines if user's move is toggling a flag*/
 	   if(move.charAt(0) == '.')
 	   {
 		   addFlag = true;
@@ -286,8 +328,11 @@ public class KaboomConsole implements Observer{
 	   row = move.substring(0, 1).toUpperCase().charAt(0) - kCharToInt;
        col= Integer.parseInt(move.substring(1, move.length())) - 1;
        
-       if(row >= 0 && row < game.getBoard().getRowCount() && col >= 0 && col < game.getBoard().getColumnCount())
+       /*Determines if the users move is in the board's range*/
+       if(row >= 0 && row < game.getBoard().getRowCount() && col >= 0 &&
+           col < game.getBoard().getColumnCount())
        {
+    	   /*Adds a flag if desired, otherwise a move is made*/
            if(addFlag)
            {
         	   game.toggleFlag(row, col);
@@ -299,31 +344,45 @@ public class KaboomConsole implements Observer{
        }
    }
    
+   /**
+    * Helper method which maps a KaboomPieces piece to a character for the
+    * console version.
+    * 
+    * @param cell the specified cell to be converted to a character
+    * @return a character representing the state of the KaboomCell.
+    */
    private Character mapBoardPieceToCharacter(KaboomCell cell)
    {
 	   Character retChar = ' ';
 	   
-	   if(cell.isFlagged()/*() == KaboomPieces.flagged*/)
+	   /*Determines if the cell is flagged or not*/
+	   if(cell.isFlagged())
 	   {
 		   retChar = '@';
 	   }
+	   /*Determines if the cell is covered or not*/
 	   else if(cell.getCellState() == KaboomPieces.covered)
 	   {
 		   retChar = '-';
 	   }
 	   else
 	   {
+		   /*Determines if the cell is a bomb that has been hit*/
 		   if(cell.getCellState() == KaboomPieces.bombHit)
 		   {
 			   retChar = '*';
 		   }
+		   /*Determines if the cell is a bomb that has not been hit*/
 		   else if(cell.getCellState() == KaboomPieces.bomb)
 		   {
 			   retChar = 'B';
 		   }
+		   /*Otherwise it is an uncovered cell that should be blank or a
+		    number*/
 		   else if(cell.getNumBombsNear() > 0)
 		   {
-			   String charStr = (new Integer(cell.getNumBombsNear())).toString();
+			   String charStr = (new Integer(
+			       cell.getNumBombsNear())).toString();
 			   retChar = charStr.charAt(0);
 		   }
 	   }
@@ -331,11 +390,19 @@ public class KaboomConsole implements Observer{
 	   return retChar;
    }
    
+   /**
+    * Helper method to display the board and options
+    * 
+    * @throws IOException thrown by the writer
+    */
    private void displayBoardAndOptions() throws IOException
    {
-	   String timeString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
+	   String timeString = "" + game.getTimerCount() / secondsInAMin + ":" 
+           + String.format("%02d", game.getTimerCount() % secondsInAMin);
        writer.write("Kaboom - board " + this.boardNum + "\n");
-       writer.write("Moves: " + game.getMoveCount() + "   Flags: " + game.getFlagCount() + "/" + game.getNumBombs() + "  " + timeString + "\n");
+       writer.write("Moves: " + game.getMoveCount() + "   Flags: " + 
+           game.getFlagCount() + "/" + game.getNumBombs() + 
+           "  " + timeString + "\n");
        String colString = "     ";
        
        /*Creates the top row of numbers on the board*/
@@ -388,6 +455,12 @@ public class KaboomConsole implements Observer{
        writer.flush();
    }
    
+   /**
+    * Updates the console's output based on the status of the game
+    * 
+    * @param o the object being observed
+    * @param arg an argument being passed by the observable object
+    */
    @Override
    public void update(Observable o, Object arg) {
 	   String saveScoreResponse, userName;
@@ -397,36 +470,47 @@ public class KaboomConsole implements Observer{
 	   {
 		   displayBoardAndOptions();
 		   
+		   /*Determines if the player has lost*/
 		   if(response != null && response == KaboomGame.kUpdateBoardLoss)
 		   {
 			   writer.write("-- Game Over --\n");
 			   writer.write("You lost.\n");
 			   writer.flush();
 		   }
+		   /*Determines if the player has won*/
 		   else if(response != null && response == KaboomGame.kUpdateBoardWin)
 		   {
-			   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
-			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
+			   writer.write("Game Won Notification: Game " + this.boardNum + 
+			       " Cleared! \n");
+			   String timerString = "" + game.getTimerCount() / secondsInAMin + 
+			       ":" + String.format("%02d", game.getTimerCount() 
+			       % secondsInAMin);
 			   writer.write("Save your time of " + timerString + "? (y/n)\n");
 			   writer.flush();
 			   
+			   /*Determines if there is more input to read*/
 			   if(scan.hasNext())
 			   {
 				   saveScoreResponse = scan.nextLine().trim().toLowerCase();
+				   
+				   /*Determines if the user wants to save their score*/
 				   if(saveScoreResponse.equals("y"))
 				   {
-					   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
+					   writer.write("Name Entry: Your score of " + timerString 
+					       + " will be entered into the Hall of Fame. \n");
 					   writer.write("Enter your name: \n");
 					   writer.flush();
 					   
 					   userName = scan.nextLine();
 					   
+					   /*Truncates the name if it is too long*/
 			           if(userName.length() > kMaxNameLength)
 			           {
 			               userName = userName.substring(0, kMaxNameLength);
 			           }
 			            
-					   this.hallOfFame.addHighScore(userName, game.getTimerCount());
+					   this.hallOfFame.addHighScore(userName,
+					       game.getTimerCount());
 				   }
 			   }
 		   }
