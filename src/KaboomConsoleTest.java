@@ -21,10 +21,7 @@ public class KaboomConsoleTest extends TestCase {
         try
         {
             File file = new File("kaboom/halloffame.ser");
-            if (file.delete())
-            {
-                System.out.println("halloffame.ser deleted");
-            }
+            file.delete();
         }
         catch(Exception e){
             e.printStackTrace();

@@ -102,7 +102,7 @@ public class KaboomConsole implements Observer{
 			   if(userInput.length() == 1)
 			   {
 				   userChoice = Integer.parseInt(userInput);
-				   if(userChoice >= 1 && userChoice <= kNumOptions)
+				   if(userChoice >= 0 && userChoice <= kNumOptions)
 				   {
 					   executeOption(userChoice);
 				   }
@@ -125,6 +125,8 @@ public class KaboomConsole implements Observer{
 	   {
 	   case kHiddenEraseHighScores:
 		   this.hallOfFame.eraseHighScores();
+		   this.writer.write("kaboom/halloffame.ser deleted.\n");
+		   this.writer.flush();
 		   break;
 	   case kRestart:
 		   this.game.restart();
@@ -388,42 +390,78 @@ public class KaboomConsole implements Observer{
 	   {
 		   displayBoardAndOptions();
 		   
-		   if(game.isGameOver())
+		   if(game.hitBomb())
 		   {
-			   if(game.gameWon())
+			   writer.write("-- Game Over --\n");
+			   writer.write("You lost.\n");
+			   writer.flush();
+		   }
+		   if(!game.gameLost() && !game.gameAlreadyWon() && game.gameWon())
+		   {
+			   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
+			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
+			   writer.write("Save your time of " + timerString + "? (y/n)\n");
+			   writer.flush();
+			   this.game.increaseWinCount();
+			   
+			   if(scan.hasNext())
 			   {
-				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
-				   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
-				   writer.write("Save your time of " + timerString + "? (y/n)\n");
-				   writer.flush();
-				   
-				   if(scan.hasNext())
+				   saveScoreResponse = scan.nextLine().trim().toLowerCase();
+				   if(saveScoreResponse.equals("y"))
 				   {
-					   saveScoreResponse = scan.nextLine().trim().toLowerCase();
-					   if(saveScoreResponse.equals("y"))
-					   {
-						   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
-						   writer.write("Enter your name: ");
-						   writer.flush();
-						   
-						   userName = scan.nextLine();
-						   
-				           if(userName.length() > kMaxNameLength)
-				           {
-				               userName = userName.substring(0, kMaxNameLength);
-				           }
-				            
-						   this.hallOfFame.addHighScore(userName, game.getTimerCount());
-					   }
+					   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
+					   writer.write("Enter your name: \n");
+					   writer.flush();
+					   
+					   userName = scan.nextLine();
+					   
+			           if(userName.length() > kMaxNameLength)
+			           {
+			               userName = userName.substring(0, kMaxNameLength);
+			           }
+			            
+					   this.hallOfFame.addHighScore(userName, game.getTimerCount());
 				   }
 			   }
-			   else
-			   {
-				   writer.write("-- Game Over --\n");
-				   writer.write("You lost.\n");
-				   writer.flush();
-			   }
 		   }
+		   
+		   
+//		   if(game.isGameOver() && !game.isPeeking())
+//		   {
+//			   if(game.gameWon())
+//			   {
+//				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
+//				   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
+//				   writer.write("Save your time of " + timerString + "? (y/n)\n");
+//				   writer.flush();
+//				   
+//				   if(scan.hasNext())
+//				   {
+//					   saveScoreResponse = scan.nextLine().trim().toLowerCase();
+//					   if(saveScoreResponse.equals("y"))
+//					   {
+//						   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
+//						   writer.write("Enter your name: \n");
+//						   writer.flush();
+//						   
+//						   userName = scan.nextLine();
+//						   
+//				           if(userName.length() > kMaxNameLength)
+//				           {
+//				               userName = userName.substring(0, kMaxNameLength);
+//				           }
+//				            
+//						   this.hallOfFame.addHighScore(userName, game.getTimerCount());
+//					   }
+//				   }
+//			   }
+//			   else
+//			   {
+//				   writer.write("-- Game Over --\n");
+//				   writer.write("You lost.\n");
+//				   writer.flush();
+//			   }
+//		   }
 	   }
 	   catch (IOException e)
 	   {

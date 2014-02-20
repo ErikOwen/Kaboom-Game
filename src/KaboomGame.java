@@ -1,17 +1,15 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import java.util.Random;
-
 import javax.swing.Timer;
 
 
 public class KaboomGame extends Observable {
 
-	private int boardSize, difficulty, boardNum, numMoves, flagCount, timeSeconds;
+	private int boardSize, difficulty, boardNum, numMoves, flagCount, timeSeconds, winCount;
 	private KaboomBoard board;
 	private Timer timer;
-	private boolean gameOver, gameWon;
+	private boolean hasLost, gameWon, hitBomb;
 	private static final int kMillisecondsPerSecond = 1000;
 	
 	public KaboomGame(int boardSize, int difficulty, int boardNum) {
@@ -21,8 +19,10 @@ public class KaboomGame extends Observable {
 		this.numMoves = 0;
 		this.flagCount = 0;
 		this.timeSeconds = 0;
-		this.gameOver = false;
+		this.winCount = 0;
+		this.hasLost = false;
 		this.gameWon = false;
+		this.hitBomb = false;
 		
         ActionListener timerListener = new ActionListener()
         {   
@@ -35,8 +35,6 @@ public class KaboomGame extends Observable {
 		this.timer = new Timer(kMillisecondsPerSecond, timerListener);
 		this.timer.setInitialDelay(0);
 		this.timer.start();
-		
-		//newGame(this.boardSize, this.difficulty, this.boardNum);
 	}
 	
 	public void newGame(int boardSize, int difficulty, int boardNum)
@@ -48,8 +46,10 @@ public class KaboomGame extends Observable {
 		this.numMoves = 0;
 		this.flagCount = 0;
 		this.timeSeconds = 0;
-		this.gameOver = false;
+		this.winCount = 0;
+		this.hasLost = false;
 		this.gameWon = false;
+		this.hitBomb = false;
 		this.board = new KaboomBoard(this.boardSize, this.difficulty, this.boardNum);
 		this.timer.restart();
 		
@@ -64,29 +64,32 @@ public class KaboomGame extends Observable {
 	
 	public void takeTurn(int row, int col)
 	{
-		if(row >= 0 && row < board.getRowCount() && col >= 0 && col < board.getColumnCount() && ((KaboomCell)board.getValueAt(row, col)).getCellState() == KaboomPieces.covered)
+		if(row >= 0 && row < board.getRowCount() && col >= 0 && col < board.getColumnCount() /*&& ((KaboomCell)board.getValueAt(row, col)).getCellState() == KaboomPieces.covered*/)
 		{
 			this.numMoves++;
 			KaboomCell chosenCell = (KaboomCell)board.getValueAt(row, col);
 			chosenCell.setUncovered();
+			
 			if(chosenCell.isBomb())
 			{
 				this.timer.stop();
-				this.gameOver = true;
+				this.hitBomb = true;
+				this.hasLost = true;
 				chosenCell.setCellState(KaboomPieces.bombHit);
 				this.board.setToPeak();
 			}
 			else
 			{
+				this.hitBomb = false;
+				
 				if(chosenCell.getNumBombsNear() == 0)
 				{
 					this.board.uncoverNeighboringEmptyCells(row, col);
 				}
 				
-				this.gameWon = board.boardIsCleared();
-				if(this.gameWon)
+				if(board.boardIsCleared())
 				{
-					this.gameOver = true;
+					this.gameWon = true;
 				}
 			}
 			
@@ -95,9 +98,14 @@ public class KaboomGame extends Observable {
 		}
 	}
 	
-	public boolean isGameOver()
+	public boolean gameAlreadyWon()
 	{
-		return this.gameOver;
+		return this.winCount >= 1;
+	}
+	
+	public void increaseWinCount()
+	{
+		this.winCount++;
 	}
 	
 	public KaboomBoard getBoard()
@@ -120,9 +128,19 @@ public class KaboomGame extends Observable {
 		return this.board.getNumBombs();
 	}
 	
+	public boolean hitBomb()
+	{
+		return this.hitBomb;
+	}
+	
 	public boolean gameWon()
 	{
 		return this.gameWon;
+	}
+	
+	public boolean gameLost()
+	{
+		return this.hasLost;
 	}
 	
 	public int getTimerCount()
@@ -154,6 +172,7 @@ public class KaboomGame extends Observable {
 	public void peek()
 	{
 		this.board.setToPeak();
+		//this.isPeeking = true;
 		
 		this.setChanged();
 		this.notifyObservers();
@@ -161,6 +180,8 @@ public class KaboomGame extends Observable {
 	
 	public void cheat()
 	{
+		//this.isPeeking = false;
+		//this.gameOver = false;
 		this.board.createCheatBoard();
 		
 		this.setChanged();
