@@ -92,7 +92,6 @@ public class KaboomConsole implements Observer{
 	   this.game.newGame(boardPrefSize, boardDifficulty, boardNum);
 	   String userInput = "";
 	   int userChoice = -1;
-	   //Scanner scan = new Scanner(this.reader);
 	   
 	   while(userChoice != kQuit && scan.hasNext())
 	   {
@@ -212,6 +211,9 @@ public class KaboomConsole implements Observer{
 	   });
 	   boardSizeKeys.addAll(boardSizeSection.keySet());
 	   
+	   //could be wrong
+	   this.boardPrefSize = Integer.parseInt(boardSizeSection.get(boardSizeKeys.first()));
+	   
 	   SortedSet<String> difficultyKeys = new TreeSet<String>(new Comparator<String>() {
 		   public int compare(String s, String s2)
 		   {
@@ -220,6 +222,9 @@ public class KaboomConsole implements Observer{
 	   });
 	   
 	   difficultyKeys.addAll(difficultiesSection.keySet());
+	   
+	   //could be wrong
+	   this.boardDifficulty = Integer.parseInt(difficultiesSection.get(difficultyKeys.first()));
 	   
 	   Map<Character, String> choiceMap = new TreeMap<Character, String>();
 	   String boardSizeString = "", difficultyString = "";
@@ -404,7 +409,6 @@ public class KaboomConsole implements Observer{
 			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
 			   writer.write("Save your time of " + timerString + "? (y/n)\n");
 			   writer.flush();
-//			   this.game.increaseWinCount();
 			   
 			   if(scan.hasNext())
 			   {
@@ -426,79 +430,6 @@ public class KaboomConsole implements Observer{
 				   }
 			   }
 		   }
-		   
-//		   if(game.hitBomb())
-//		   {
-//			   writer.write("-- Game Over --\n");
-//			   writer.write("You lost.\n");
-//			   writer.flush();
-//		   }
-//		   if(!game.gameLost() && !game.gameAlreadyWon() && game.gameWon())
-//		   {
-//			   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
-//			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
-//			   writer.write("Save your time of " + timerString + "? (y/n)\n");
-//			   writer.flush();
-//			   this.game.increaseWinCount();
-//			   
-//			   if(scan.hasNext())
-//			   {
-//				   saveScoreResponse = scan.nextLine().trim().toLowerCase();
-//				   if(saveScoreResponse.equals("y"))
-//				   {
-//					   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
-//					   writer.write("Enter your name: \n");
-//					   writer.flush();
-//					   
-//					   userName = scan.nextLine();
-//					   
-//			           if(userName.length() > kMaxNameLength)
-//			           {
-//			               userName = userName.substring(0, kMaxNameLength);
-//			           }
-//			            
-//					   this.hallOfFame.addHighScore(userName, game.getTimerCount());
-//				   }
-//			   }
-//		   }
-//		   
-//		   
-//		   if(game.isGameOver() && !game.isPeeking())
-//		   {
-//			   if(game.gameWon())
-//			   {
-//				   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
-//				   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
-//				   writer.write("Save your time of " + timerString + "? (y/n)\n");
-//				   writer.flush();
-//				   
-//				   if(scan.hasNext())
-//				   {
-//					   saveScoreResponse = scan.nextLine().trim().toLowerCase();
-//					   if(saveScoreResponse.equals("y"))
-//					   {
-//						   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
-//						   writer.write("Enter your name: \n");
-//						   writer.flush();
-//						   
-//						   userName = scan.nextLine();
-//						   
-//				           if(userName.length() > kMaxNameLength)
-//				           {
-//				               userName = userName.substring(0, kMaxNameLength);
-//				           }
-//				            
-//						   this.hallOfFame.addHighScore(userName, game.getTimerCount());
-//					   }
-//				   }
-//			   }
-//			   else
-//			   {
-//				   writer.write("-- Game Over --\n");
-//				   writer.write("You lost.\n");
-//				   writer.flush();
-//			   }
-//		   }
 	   }
 	   catch (IOException e)
 	   {
