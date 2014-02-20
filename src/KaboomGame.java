@@ -9,8 +9,9 @@ public class KaboomGame extends Observable {
 	private int boardSize, difficulty, boardNum, numMoves, flagCount, timeSeconds, winCount;
 	private KaboomBoard board;
 	private Timer timer;
-	private boolean hasLost, gameWon, hitBomb;
+	private boolean hasLost, hasWon, hitBomb;
 	private static final int kMillisecondsPerSecond = 1000;
+	public static final int kUpdateBoardLoss = 1, kUpdateBoardWin = 2;
 	
 	public KaboomGame(int boardSize, int difficulty, int boardNum) {
 		this.boardSize = boardSize;
@@ -21,7 +22,7 @@ public class KaboomGame extends Observable {
 		this.timeSeconds = 0;
 		this.winCount = 0;
 		this.hasLost = false;
-		this.gameWon = false;
+		this.hasWon = false;
 		this.hitBomb = false;
 		
         ActionListener timerListener = new ActionListener()
@@ -48,7 +49,7 @@ public class KaboomGame extends Observable {
 		this.timeSeconds = 0;
 		this.winCount = 0;
 		this.hasLost = false;
-		this.gameWon = false;
+		this.hasWon = false;
 		this.hitBomb = false;
 		this.board = new KaboomBoard(this.boardSize, this.difficulty, this.boardNum);
 		this.timer.restart();
@@ -73,40 +74,44 @@ public class KaboomGame extends Observable {
 			if(chosenCell.isBomb())
 			{
 				this.timer.stop();
-				this.hitBomb = true;
 				this.hasLost = true;
 				chosenCell.setCellState(KaboomPieces.bombHit);
 				this.board.setToPeak();
+				
+				this.setChanged();
+				this.notifyObservers(kUpdateBoardLoss);
 			}
 			else
-			{
-				this.hitBomb = false;
-				
+			{	
 				if(chosenCell.getNumBombsNear() == 0)
 				{
 					this.board.uncoverNeighboringEmptyCells(row, col);
 				}
 				
-				if(board.boardIsCleared())
+				if(board.boardIsCleared() && !this.hasWon && !this.hasLost)
 				{
-					this.gameWon = true;
+					this.hasWon = true;
+					this.setChanged();
+					this.notifyObservers(kUpdateBoardWin);
+				}
+				else
+				{
+					this.setChanged();
+					this.notifyObservers();
 				}
 			}
-			
-			this.setChanged();
-			this.notifyObservers();
 		}
 	}
 	
-	public boolean gameAlreadyWon()
-	{
-		return this.winCount >= 1;
-	}
+//	public boolean gameAlreadyWon()
+//	{
+//		return this.winCount >= 1;
+//	}
 	
-	public void increaseWinCount()
-	{
-		this.winCount++;
-	}
+//	public void increaseWinCount()
+//	{
+//		this.winCount++;
+//	}
 	
 	public KaboomBoard getBoard()
 	{
@@ -133,15 +138,15 @@ public class KaboomGame extends Observable {
 		return this.hitBomb;
 	}
 	
-	public boolean gameWon()
-	{
-		return this.gameWon;
-	}
+//	public boolean gameWon()
+//	{
+//		return this.hasWon;
+//	}
 	
-	public boolean gameLost()
-	{
-		return this.hasLost;
-	}
+//	public boolean gameLost()
+//	{
+//		return this.hasLost;
+//	}
 	
 	public int getTimerCount()
 	{

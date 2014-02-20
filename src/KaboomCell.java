@@ -27,7 +27,7 @@ public class KaboomCell {
 	
 	public boolean isBomb()
 	{
-		return this.cellState == KaboomPieces.bomb;
+		return (this.cellState == KaboomPieces.bomb || this.cellState == KaboomPieces.bombHit);
 	}
 	
 	public void setUncovered()

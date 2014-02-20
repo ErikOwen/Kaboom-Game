@@ -386,23 +386,25 @@ public class KaboomConsole implements Observer{
    @Override
    public void update(Observable o, Object arg) {
 	   String saveScoreResponse, userName;
+	   Integer response = (Integer) arg;
+
 	   try
 	   {
 		   displayBoardAndOptions();
 		   
-		   if(game.hitBomb())
+		   if(response != null && response == KaboomGame.kUpdateBoardLoss)
 		   {
 			   writer.write("-- Game Over --\n");
 			   writer.write("You lost.\n");
 			   writer.flush();
 		   }
-		   if(!game.gameLost() && !game.gameAlreadyWon() && game.gameWon())
+		   else if(response != null && response == KaboomGame.kUpdateBoardWin)
 		   {
 			   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
 			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
 			   writer.write("Save your time of " + timerString + "? (y/n)\n");
 			   writer.flush();
-			   this.game.increaseWinCount();
+//			   this.game.increaseWinCount();
 			   
 			   if(scan.hasNext())
 			   {
@@ -425,7 +427,42 @@ public class KaboomConsole implements Observer{
 			   }
 		   }
 		   
-		   
+//		   if(game.hitBomb())
+//		   {
+//			   writer.write("-- Game Over --\n");
+//			   writer.write("You lost.\n");
+//			   writer.flush();
+//		   }
+//		   if(!game.gameLost() && !game.gameAlreadyWon() && game.gameWon())
+//		   {
+//			   writer.write("Game Won Notification: Game " + this.boardNum + " Cleared! \n");
+//			   String timerString = "" + game.getTimerCount() / secondsInAMin + ":" + String.format("%02d", game.getTimerCount() % secondsInAMin);
+//			   writer.write("Save your time of " + timerString + "? (y/n)\n");
+//			   writer.flush();
+//			   this.game.increaseWinCount();
+//			   
+//			   if(scan.hasNext())
+//			   {
+//				   saveScoreResponse = scan.nextLine().trim().toLowerCase();
+//				   if(saveScoreResponse.equals("y"))
+//				   {
+//					   writer.write("Name Entry: Your score of " + timerString + " will be entered into the Hall of Fame. \n");
+//					   writer.write("Enter your name: \n");
+//					   writer.flush();
+//					   
+//					   userName = scan.nextLine();
+//					   
+//			           if(userName.length() > kMaxNameLength)
+//			           {
+//			               userName = userName.substring(0, kMaxNameLength);
+//			           }
+//			            
+//					   this.hallOfFame.addHighScore(userName, game.getTimerCount());
+//				   }
+//			   }
+//		   }
+//		   
+//		   
 //		   if(game.isGameOver() && !game.isPeeking())
 //		   {
 //			   if(game.gameWon())

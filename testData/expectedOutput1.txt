@@ -11,6 +11,7 @@ Moves: 0   Flags: 0/8  0:00
  H:  -  -  -  -  -  -  -  -
  --------------------------
 1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs
+kaboom/halloffame.ser deleted.
 Select Game: Enter desired game number (1 - 5000):
 Kaboom - board 7
 Moves: 0   Flags: 0/8  0:00
