@@ -78,5 +78,25 @@ public class KaboomConsoleTest extends TestCase
             System.out.print("");
         }
     }
+    
+    /**
+     * Test the Kaboom Console functionality
+     */
+    public void test3()
+    {
+        try
+        {
+            KaboomConsole app = new KaboomConsole();
+            app.setIOsources(new FileReader(new File("testData/testInput3.txt")),
+                new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("testData/actualOutput3.txt"), "utf-8")));
+            
+            app.run();
+        }
+        catch(Exception e)
+        {
+            System.out.print("");
+        }
+    }
 
 }

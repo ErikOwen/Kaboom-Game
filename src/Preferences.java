@@ -7,6 +7,8 @@ import java.lang.Integer;
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Profile.Section;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -22,6 +24,7 @@ public class Preferences
     private int boardSize, difficulty;
     private Ini ini;
     private Ini.Section boardSection, difficultySection;
+    //LinkedHashMap<String, String> boardSection, difficultySection;
     private final String kPreferencesPath = "kaboom/preferences.ini";
     
     /**
@@ -31,11 +34,10 @@ public class Preferences
     {
         ini = new Ini();
         ini.load(new FileReader(new File(kPreferencesPath)));
+        //this.boardSection = (LinkedHashMap<String, String>) ini.get("Board Size");
         this.boardSection = (Ini.Section)ini.get("Board Size");
-//        this.boardSize = Integer.parseInt((String)boardSection.get("small"));
         
         this.difficultySection = (Ini.Section)ini.get("Difficulty");
-//      this.difficulty = Integer.parseInt((String)difficultySection.get("easy"));
     }
     
     /**
@@ -46,6 +48,15 @@ public class Preferences
     public int getDefaultBoardSize()
     {
         return Integer.parseInt((String)boardSection.get("small"));
+    }
+    
+    /**
+     * Accessor method to get the Ini object
+     * @return the Ini object that gives access to the preferences file
+     */
+    public Ini getIni()
+    {
+        return this.ini;
     }
     
     /**

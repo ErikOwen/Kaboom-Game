@@ -5,12 +5,15 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -230,63 +233,55 @@ public class KaboomConsole implements Observer
     */
     private void getNewPreferences() throws IOException
     {
-        String userInput = "";
+        String userInput = "", boardSizeString = "", difficultiesString = "";
         final Ini.Section boardSizeSection = this.prefs.getBoardSizes();
         final Ini.Section difficultiesSection = this.prefs.getDifficulties();
         char startChoice = 'a';
-       
-        SortedSet<String> boardSizeKeys = new TreeSet<String>(
-            new Comparator<String>() {
-                /*Compares two strings*/
-                public int compare(String s, String s2)
-                {
-                    return Integer.parseInt(boardSizeSection.get(s)) -
-                        Integer.parseInt(boardSizeSection.get(s2));
-                }
-            });
-        boardSizeKeys.addAll(boardSizeSection.keySet());
-       
-        this.boardPrefSize = Integer.parseInt(
-            boardSizeSection.get(boardSizeKeys.first()));
-       
-        SortedSet<String> difficultyKeys = new TreeSet<String>(
-            new Comparator<String>() {
-                /*Compares two strings*/
-                public int compare(String s, String s2)
-                {
-                    return Integer.parseInt(difficultiesSection.get(s2)) - 
-                        Integer.parseInt(difficultiesSection.get(s));
-                }
-            });
-        difficultyKeys.addAll(difficultiesSection.keySet());
-
-        this.boardDifficulty = Integer.parseInt(
-            difficultiesSection.get(difficultyKeys.first()));
-       
         Map<Character, String> choiceMap = new TreeMap<Character, String>();
-        String boardSizeString = "", difficultyString = "";
-       
-        /*Iterates through all the board size keys*/
-        for(String key : boardSizeKeys)
+        Set<String> sections = this.prefs.getIni().keySet();
+        String prefsString = "";
+        
+        /*Iterates throug all of the sections in the preferences file*/
+        for(String section : sections)
         {
-            choiceMap.put(startChoice, key);
-            boardSizeString += "(" + startChoice++ + ") " + key + " = " + 
-                boardSizeSection.get(key) + "  ";
+            Ini.Section curSection = this.prefs.getIni().get(section);
+            prefsString += ("[" + curSection.getName() + "]" + "\n");
+            
+            /*Iterates through each element in the section*/
+            for(String sectionElementKey : curSection.keySet())
+            {
+                choiceMap.put(startChoice, sectionElementKey);
+                prefsString += "(" + startChoice++ + ") " + sectionElementKey +
+                        " = " + curSection.get(sectionElementKey) + "  ";
+            }
+            
+            prefsString += "\n";
         }
-       
-        /*Iterates through the difficulty keys*/
-        for(String key : difficultyKeys)
+      
+        boolean firstBoard = true, firstDifficulty = true;
+        /*Iterates through all of the board options*/
+        for(String boardKey : boardSizeSection.keySet())
         {
-            choiceMap.put(startChoice, key);
-            difficultyString += "(" + startChoice++ + ") " + key + " = " + 
-                difficultiesSection.get(key) + "  ";
+            /*If it is the first option then set it to the default board size*/
+            if(firstBoard)
+            {
+                this.boardPrefSize = Integer.parseInt(boardSizeSection.get(boardKey));
+                firstBoard = false;
+            }
         }
-    
-        writer.write("[Board Size]\n");
-        writer.write(boardSizeString + "\n");
-        writer.write("[Difficulty]\n");
-        writer.write(difficultyString + "\n");
-        writer.write("Your choice?\n");
+        /*Iterates through all of the difficultiy options*/
+        for(String difficultyKey : difficultiesSection.keySet())
+        {
+            /*If it is the first option then set it to the default difficulty*/
+            if(firstDifficulty)
+            {
+                this.boardDifficulty = Integer.parseInt(
+                    difficultiesSection.get(difficultyKey));
+                firstDifficulty = false;
+            }
+        }
+        prefsString += "Your choice?\n";
+        writer.write(prefsString);
         writer.flush();
         
         getPreferenceInput(userInput, choiceMap, boardSizeSection, difficultiesSection);

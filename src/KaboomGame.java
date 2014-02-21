@@ -200,8 +200,12 @@ public class KaboomGame extends Observable
         /*Determines if the cell has already been flagged*/
         if(!flaggedCell.isFlagged())
         {
-            this.flagCount++;
-            flaggedCell.setFlagged();
+            /*Determines if the cell is flag-eligible*/
+            if(flaggedCell.getCellState()  == KaboomPieces.covered)
+            {
+                this.flagCount++;
+                flaggedCell.setFlagged();
+            }
         }
         else
         {
