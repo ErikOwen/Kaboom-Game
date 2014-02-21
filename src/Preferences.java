@@ -64,70 +64,13 @@ public class Preferences
     	return Integer.parseInt((String)difficultySection.get("easy"));
     }
     
+    /**
+     * Get the difficulties
+     * 
+     * @return an Ini.Section of the difficulties in the preferences file
+     */
     public Ini.Section getDifficulties()
     {
     	return this.difficultySection;
     }
-    
-//    /**
-//     * Changes the desired board size
-//     * 
-//     * @param size indicating the desired size
-//     * @return boolean indicating if the board size has been
-//     * switched successfully.
-//     */
-//    public boolean setBoardSize(String size)
-//    {   
-//    	boolean success = true;
-//    	
-//    	if(size.equals("small"))
-//    	{
-//    		this.boardSize = Integer.parseInt((String)boardSection.get("small"));
-//    	}
-//    	else if (size.equals("medium"))
-//    	{
-//    		this.boardSize = Integer.parseInt((String)boardSection.get("medium"));
-//    	}
-//    	else if (size.equals("large"))
-//    	{
-//    		this.boardSize = Integer.parseInt((String)boardSection.get("large"));
-//    	}
-//    	else
-//    	{
-//    		success = false;
-//    	}
-//        
-//        return success;
-//    }
-//    
-//    /**
-//     * Changes the desired difficulty of the Kaboom game
-//     * 
-//     * @param difficulty indicating the desired difficulty
-//     * @return boolean indicating if the game's difficulty has been
-//     * switched successfully.
-//     */
-//    public boolean setDifficulty(String desiredDifficulty)
-//    {   
-//    	boolean success = true;
-//    	
-//    	if(desiredDifficulty.equals("easy"))
-//    	{
-//    		this.difficulty = Integer.parseInt((String)boardSection.get("small"));
-//    	}
-//    	else if (desiredDifficulty.equals("moderate"))
-//    	{
-//    		this.difficulty = Integer.parseInt((String)boardSection.get("medium"));
-//    	}
-//    	else if (desiredDifficulty.equals("hard"))
-//    	{
-//    		this.difficulty = Integer.parseInt((String)boardSection.get("large"));
-//    	}
-//    	else
-//    	{
-//    		success = false;
-//    	}
-//        
-//        return success;
-//    }
 }

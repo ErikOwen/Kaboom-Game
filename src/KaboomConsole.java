@@ -58,7 +58,8 @@ public class KaboomConsole implements Observer{
            this.boardPrefSize = prefs.getDefaultBoardSize();
            this.boardDifficulty = prefs.getDefaultDifficulty();
            
-           this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty, this.boardNum);
+           this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty,
+               this.boardNum);
            
            this.game.addObserver(this);
            
@@ -247,7 +248,8 @@ public class KaboomConsole implements Observer{
 	   
 	   difficultyKeys.addAll(difficultiesSection.keySet());
 
-	   this.boardDifficulty = Integer.parseInt(difficultiesSection.get(difficultyKeys.first()));
+	   this.boardDifficulty = Integer.parseInt(
+	       difficultiesSection.get(difficultyKeys.first()));
 	   
 	   Map<Character, String> choiceMap = new TreeMap<Character, String>();
 	   String boardSizeString = "", difficultyString = "";
@@ -257,7 +259,8 @@ public class KaboomConsole implements Observer{
 	   for(String key : boardSizeKeys)
 	   {
 		   choiceMap.put(startChoice, key);
-		   boardSizeString += "(" + startChoice++ + ") " + key + " = " + boardSizeSection.get(key) + "  ";
+		   boardSizeString += "(" + startChoice++ + ") " + key + " = " + 
+		       boardSizeSection.get(key) + "  ";
 	   }
 	   
 	   /*Iterates through the different difficulty options and creates a key
@@ -265,7 +268,8 @@ public class KaboomConsole implements Observer{
 	   for(String key : difficultyKeys)
 	   {
 		   choiceMap.put(startChoice, key);
-		   difficultyString += "(" + startChoice++ + ") " + key + " = " + difficultiesSection.get(key) + "  ";
+		   difficultyString += "(" + startChoice++ + ") " + key + " = " + 
+		       difficultiesSection.get(key) + "  ";
 	   }
 	
 	   writer.write("[Board Size]\n");
@@ -406,25 +410,30 @@ public class KaboomConsole implements Observer{
        String colString = "     ";
        
        /*Creates the top row of numbers on the board*/
-       for(int colIter = 1; colIter < game.getBoard().getColumnCount(); colIter++)
+       for(int colIter = 1; colIter < game.getBoard().getColumnCount(); 
+           colIter++)
        {
            colString = colString.concat((colIter % deciSystem) + "  ");
        }
-       colString = colString.concat((game.getBoard().getColumnCount() % deciSystem) + "\n");
+       colString = colString.concat((game.getBoard().getColumnCount() % 
+          deciSystem) + "\n");
        writer.write(colString);
        
        char curLetter = 'A';
        String curRow = "";
        
        /*Iterates through each row ont he board*/
-       for(int rowIter = 0; rowIter < game.getBoard().getRowCount(); rowIter++, curLetter++)
+       for(int rowIter = 0; rowIter < game.getBoard().getRowCount(); 
+           rowIter++, curLetter++)
        {
            curRow = curRow.concat(" " + curLetter + ":  ");
            
            /*Creates each row of the board by concatenating all of the columns*/
-           for(int colIter = 0; colIter < game.getBoard().getColumnCount(); colIter++)
+           for(int colIter = 0; colIter < game.getBoard().getColumnCount();
+               colIter++)
            {
-        	   KaboomCell curPiece = (KaboomCell)game.getBoard().getValueAt(rowIter, colIter);
+        	   KaboomCell curPiece = (KaboomCell)game.getBoard().getValueAt(
+        	       rowIter, colIter);
         	   Character curSpot = mapBoardPieceToCharacter(curPiece);
         	   
                curRow = curRow.concat(curSpot.toString());
@@ -444,14 +453,16 @@ public class KaboomConsole implements Observer{
        String dashedLine = " ----";
        
        /*Creates the dashed line's size depending on the size of the board*/
-       for(int dashNdx = 0; dashNdx < game.getBoard().getColumnCount() - 1; dashNdx++)
+       for(int dashNdx = 0; dashNdx < game.getBoard().getColumnCount() - 1; 
+           dashNdx++)
        {
            dashedLine = dashedLine.concat("---");
        }
            
        dashedLine = dashedLine.concat("-\n");
        writer.write(dashedLine);
-       writer.write("1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat 7)About 8)Quit 9)Prefs\n");
+       writer.write("1)Restart 2)New 3)Select 4)Scores 5)Peek 6)Cheat " +
+           "7)About 8)Quit 9)Prefs\n");
        writer.flush();
    }
    

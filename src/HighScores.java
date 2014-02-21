@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /**
- * Class which helps manage the Collapse Game's high score
+ * Class which helps manage the Kaboom Game's high score
  * functionality.
  * 
  * @author erikowen
@@ -53,6 +53,11 @@ public class HighScores
         highScoreWriter.close();
     }
     
+    /**
+     * Helper method to parse and sort the high scores
+     * @return a string of the parsed and sorted high scores
+     * @throws IOException thrown by scanning from the high scores file
+     */
     private String parseAndSortHighScores() throws IOException
     {
         String highScoresString = "";
@@ -107,6 +112,9 @@ public class HighScores
         return highScoresString;
     }
     
+    /**
+     * Erases the high scores file
+     */
     public void eraseHighScores()
     {
         try
