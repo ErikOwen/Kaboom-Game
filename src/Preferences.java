@@ -19,9 +19,9 @@ import java.util.Map;
  */
 public class Preferences
 {
-	private int boardSize, difficulty;
-	private Ini ini;
-	private Ini.Section boardSection, difficultySection;
+    private int boardSize, difficulty;
+    private Ini ini;
+    private Ini.Section boardSection, difficultySection;
     private final String kPreferencesPath = "kaboom/preferences.ini";
     
     /**
@@ -29,13 +29,13 @@ public class Preferences
      */
     public Preferences() throws IOException
     {
-    	ini = new Ini();
-    	ini.load(new FileReader(new File(kPreferencesPath)));
+        ini = new Ini();
+        ini.load(new FileReader(new File(kPreferencesPath)));
         this.boardSection = (Ini.Section)ini.get("Board Size");
 //        this.boardSize = Integer.parseInt((String)boardSection.get("small"));
         
         this.difficultySection = (Ini.Section)ini.get("Difficulty");
-//    	this.difficulty = Integer.parseInt((String)difficultySection.get("easy"));
+//      this.difficulty = Integer.parseInt((String)difficultySection.get("easy"));
     }
     
     /**
@@ -45,12 +45,17 @@ public class Preferences
      */
     public int getDefaultBoardSize()
     {
-    	return Integer.parseInt((String)boardSection.get("small"));
+        return Integer.parseInt((String)boardSection.get("small"));
     }
     
+    /**
+     * Accessor method to get the different board sizes in preferences
+     * 
+     * @return Ini.Section of the different board sizes
+     */
     public Ini.Section getBoardSizes()
     {
-    	return this.boardSection;
+        return this.boardSection;
     }
     
     /**
@@ -61,7 +66,7 @@ public class Preferences
      */
     public int getDefaultDifficulty()
     {
-    	return Integer.parseInt((String)difficultySection.get("easy"));
+        return Integer.parseInt((String)difficultySection.get("easy"));
     }
     
     /**
@@ -71,6 +76,6 @@ public class Preferences
      */
     public Ini.Section getDifficulties()
     {
-    	return this.difficultySection;
+        return this.difficultySection;
     }
 }

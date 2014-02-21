@@ -82,7 +82,8 @@ public class HighScores
             scoreNdx++)
         {
             HighScore curScore = scoresList.get(scoreNdx);
-            highScoresString = highScoresString.concat(curScore.getTimeString() + "  " + curScore.getName() + "\n");
+            highScoresString = highScoresString.concat("      " +
+                curScore.getTimeString() + "    " + curScore.getName() + "\n");
         }
         highScoresString = highScoresString.concat("\n");
         return highScoresString;
@@ -95,7 +96,7 @@ public class HighScores
      */
     public String getHighScores()
     {   
-    	String highScoresString = "";
+        String highScoresString = "";
         try
         {
             /*Gets the high scores if the file exists*/
@@ -122,7 +123,8 @@ public class HighScores
             File file = new File("kaboom/halloffame.ser");
             file.delete();
         }
-        catch(Exception e){
+        catch(Exception e)
+        {
             e.printStackTrace();
         }
     }

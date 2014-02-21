@@ -36,10 +36,10 @@ public class HighScore
      */
     public String getTimeString()
     {
-    	int minutes = this.timeInSeconds / kSecondsInMinute;
-    	int seconds = this.timeInSeconds % kSecondsInMinute;
-    	
-    	return minutes + ":" + String.format("%02d", seconds);
+        int minutes = this.timeInSeconds / kSecondsInMinute;
+        int seconds = this.timeInSeconds % kSecondsInMinute;
+        
+        return minutes + ":" + String.format("%02d", seconds);
     }
     
     /**
@@ -48,8 +48,9 @@ public class HighScore
      * 
      * @return int the time in seconds of the high score
      */
-    public int getTime() {
-    	return this.timeInSeconds;
+    public int getTime()
+    {
+        return this.timeInSeconds;
     }
     
     /**

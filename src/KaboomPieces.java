@@ -5,6 +5,7 @@
  * @version 1
  *
  */
-public enum KaboomPieces {
-	covered, flagged, empty, bomb, bombHit;
+public enum KaboomPieces
+{
+    covered, flagged, empty, bomb, bombHit;
 }
