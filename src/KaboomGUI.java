@@ -17,6 +17,7 @@ import java.util.Observer;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -33,6 +34,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -134,7 +136,6 @@ public class KaboomGUI extends JFrame implements Observer {
 
 		table.setDefaultEditor(Object.class, null);
 		table.setDefaultRenderer(KaboomCell.class, new KaboomCellRenderer(images));
-
 		//Define the layout manager that will control order of components
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -266,7 +267,7 @@ public class KaboomGUI extends JFrame implements Observer {
 
 		table.setOpaque(false);
 		table.setShowGrid(false);
-
+		
 		table.setAlignmentX(Component.CENTER_ALIGNMENT);
 		getContentPane().add(table);
 
@@ -275,19 +276,26 @@ public class KaboomGUI extends JFrame implements Observer {
 		{
 			public void mouseReleased(MouseEvent ev)
 			{
-				int col = table.getSelectedColumn();
 				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
 				// Is it a left mouse click?
 				if (SwingUtilities.isLeftMouseButton(ev)) 
 				{
-					row = (int) (ev.getPoint().getY()/kTileHeight);
-					col = (int) (ev.getPoint().getX()/kTileWidth);
 					selectCell(row, col);
 				}
+				else if(SwingUtilities.isRightMouseButton(ev))
+				{
+					row = (int) (ev.getPoint().getY()/kTileHeight);
+					col = (int) (ev.getPoint().getX()/kTileWidth);
+					game.toggleFlag(row, col);
+				}
+
+				System.out.println("Row: " + row);
+				System.out.println("Column: " + col);
 				repaint();
 			}
 		}
-				);
+		);
 
 		table.addKeyListener(new KeyAdapter()
 		{

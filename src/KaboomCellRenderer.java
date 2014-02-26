@@ -1,3 +1,4 @@
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,6 +26,7 @@ public class KaboomCellRenderer extends DefaultTableCellRenderer
         this.images = images;
         this.setHorizontalAlignment(JLabel.CENTER);
         this.setVerticalAlignment(JLabel.CENTER);
+        this.setBorder(BorderFactory.createEmptyBorder());
     }
     
     /**
@@ -41,13 +43,13 @@ public class KaboomCellRenderer extends DefaultTableCellRenderer
         setIcon(null);
         setText(null);
         
-        if(piece == KaboomPieces.covered)
-        {
-            setIcon(images[kCovered]);
-        }
-        else if(piece == KaboomPieces.flagged)
+        if(/*piece == KaboomPieces.flagged*/curCell.isFlagged())
         {
             setIcon(images[kFlagged]);
+        }
+        else if(piece == KaboomPieces.covered)
+        {
+            setIcon(images[kCovered]);
         }
         else if(piece == KaboomPieces.bomb)
         {
