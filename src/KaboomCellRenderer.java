@@ -1,4 +1,5 @@
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 
@@ -22,6 +23,8 @@ public class KaboomCellRenderer extends DefaultTableCellRenderer
     public KaboomCellRenderer(ImageIcon [] images)
     {
         this.images = images;
+        this.setHorizontalAlignment(JLabel.CENTER);
+        this.setVerticalAlignment(JLabel.CENTER);
     }
     
     /**
@@ -53,6 +56,10 @@ public class KaboomCellRenderer extends DefaultTableCellRenderer
         else if(piece == KaboomPieces.bombHit)
         {
             setIcon(images[kBombHit]);
+        }
+        else if(piece == KaboomPieces.empty && curCell.getNumBombsNear() > 0) {
+        	setText(new Integer(curCell.getNumBombsNear()).toString());
+        	
         }
 
     }

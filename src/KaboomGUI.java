@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -99,18 +100,23 @@ public class KaboomGUI extends JFrame implements Observer {
 			private Image scaled = backgroundOrig.getImage().getScaledInstance(
 					images[0].getIconWidth() * boardPrefSize, images[0].getIconHeight()
 					* boardPrefSize, Image.SCALE_DEFAULT);
-			private ImageIcon backgroundIcon = new ImageIcon(scaled);
+			//private ImageIcon backgroundIcon = new ImageIcon(scaled);
+			private ImageIcon backgroundIcon = new ImageIcon(backgroundOrig.getImage());
 
 			public Component prepareRenderer(TableCellRenderer renderer,
 					int row, int column)
 			{
 				Component comp = super.prepareRenderer(renderer, row, column);
-
 				/*If the component is of type JComponent, setOpaque to false*/
 				if( comp instanceof JComponent )
 				{   
-					((JComponent)comp).setOpaque(false);
+					JComponent component = (JComponent)comp;
+					component.setOpaque(false);
+					component.setForeground(Color.WHITE);
+					component.setFont(component.getFont().deriveFont(32.0f));
+					
 				}
+				
 				return comp;
 			}
 
