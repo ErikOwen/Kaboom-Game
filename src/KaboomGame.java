@@ -19,7 +19,8 @@ public class KaboomGame extends Observable
     private Timer timer;
     private boolean hasLost, hasWon;
     private static final int kMillisecondsPerSecond = 1000;
-    public static final int kUpdateBoardLoss = 1, kUpdateBoardWin = 2;
+    public static final int kUpdateBoardLoss = 1, kUpdateBoardWin = 2, 
+        kUpdateTimer = 3;
     
     /**
      * Constructor to instantiate a KaboomGame object.
@@ -46,12 +47,14 @@ public class KaboomGame extends Observable
             public void actionPerformed(ActionEvent e)
             {
                 timeSeconds++;
+                setChanged();
+                notifyObservers(kUpdateTimer);
             }
         };
         
         this.timer = new Timer(kMillisecondsPerSecond, timerListener);
         this.timer.setInitialDelay(1);
-        this.timer.start();
+        //this.timer.start();
     }
     
     /**

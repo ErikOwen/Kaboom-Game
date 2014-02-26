@@ -82,8 +82,65 @@ public class KaboomGUI extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		Integer response = (Integer) arg;
+
+		String timerString = "" + game.getTimerCount() / kSecondsInAMin + 
+				":" + String.format("%02d", game.getTimerCount() 
+						% kSecondsInAMin);
+		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
+				"      " + "Flags: " + game.getFlagCount() + "/" + 
+				game.getNumBombs() + "      " + timerString);
+		this.statusPane.removeAll();
+		this.statusPane.add(gameStatus);
+		this.statusPane.revalidate();
+		this.statusPane.repaint();
+
+		if(response != null && response == KaboomGame.kUpdateBoardLoss)
+		{
+			//TODO
+			JOptionPane.showMessageDialog(
+					null,
+					"You lost.",
+					"Game Over",
+					JOptionPane.INFORMATION_MESSAGE
+					);
+		}
+		/*Determines if the player has won*/
+		else if(response != null && response == KaboomGame.kUpdateBoardWin)
+		{
+			//TODO
+			/*GAME WON DIALOG POPS UP*/
+			String choice = JOptionPane.showInputDialog(
+					this,
+					"Game " + this.boardNum + " Cleared!\nSave your time of " + 
+							timerString + "? (y/n)",
+							"Game Won Notification",
+							JOptionPane.QUESTION_MESSAGE
+					);
+			/*If the user entered the letter 'y'*/
+			if(choice != null && choice.toLowerCase().trim().equals("y"))
+			{
+				String name = JOptionPane.showInputDialog(
+						this,
+						"Your score of " + timerString +
+						" will be entered into the Hall of Fame.\nEnter your name:",
+						"Name Entry",
+						JOptionPane.QUESTION_MESSAGE
+						);
+				/*If the pop up dialogue was executed correctly*/
+				if(name != null)
+				{
+					try
+					{
+						this.hallOfFame.addHighScore(name, game.getTimerCount());
+					}
+					catch(IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 	
 	/** Place all the Swing widgets in the frame of this GUI.
@@ -92,6 +149,11 @@ public class KaboomGUI extends JFrame implements Observer {
 	public void run()
 	{
 		loadImages();
+		statusPane = new JPanel();
+		gameStatus = new JLabel("");
+		statusPane.add(gameStatus);
+		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		getContentPane().add(statusPane);
 		this.game.newGame(boardPrefSize, boardDifficulty, boardNum);
 		this.model = this.game.getBoard();
 		this.table = new JTable(model)
@@ -252,13 +314,13 @@ public class KaboomGUI extends JFrame implements Observer {
 		setJMenuBar(menuBar);        
 
 		// Create a panel for the status information
-		statusPane = new JPanel();
-		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
-				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs()
-				+ "      " + game.getTimerCount());
-		statusPane.add(gameStatus);
-		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		getContentPane().add(statusPane);
+//		statusPane = new JPanel();
+//		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
+//				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs()
+//				+ "      " + game.getTimerCount());
+//		statusPane.add(gameStatus);
+//		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		getContentPane().add(statusPane);
 
 		// Define the characteristics of the table that shows the game board        
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

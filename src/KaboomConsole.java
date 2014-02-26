@@ -492,7 +492,9 @@ public class KaboomConsole implements Observer
 
         try
         {
-            displayBoardAndOptions();
+        	if(response == null || response != KaboomGame.kUpdateTimer) {
+        		displayBoardAndOptions();
+        	}
            
             /*Determines if the player has lost*/
             if(response != null && response == KaboomGame.kUpdateBoardLoss)
