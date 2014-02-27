@@ -53,8 +53,7 @@ public class KaboomGame extends Observable
         };
         
         this.timer = new Timer(kMillisecondsPerSecond, timerListener);
-        this.timer.setInitialDelay(1);
-        //this.timer.start();
+        this.timer.setInitialDelay(kMillisecondsPerSecond);
     }
     
     /**

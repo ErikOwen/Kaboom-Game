@@ -213,9 +213,7 @@ public class KaboomGUI extends JFrame implements Observer {
 			public void actionPerformed(ActionEvent e)
 			{
 				game.restart();
-				model = game.getBoard();
-				table.setModel(model);
-				setTitle("Kaboom - board " + boardNum);
+				newGame();
 			}
 		});
 		mnuGame.add(mnuRestart);
@@ -237,14 +235,12 @@ public class KaboomGUI extends JFrame implements Observer {
 				}
 				
 				game.newGame(boardPrefSize, boardDifficulty, boardNum);
-				model = game.getBoard();
-				table.setModel(model);
-				setTitle("Kaboom - board " + boardNum);
+				newGame();
 			}
 		});
 		mnuGame.add(mnuNew);
 
-		JMenuItem mnuSelectGame = new JMenuItem("Select Game");
+		JMenuItem mnuSelectGame = new JMenuItem("Select");
 		mnuSelectGame.setAccelerator(KeyStroke.getKeyStroke('G', ActionEvent.ALT_MASK));
 		mnuSelectGame.addActionListener(new ActionListener()
 		{
@@ -264,8 +260,8 @@ public class KaboomGUI extends JFrame implements Observer {
 					{
 						int gameNum = Integer.parseInt(gameNumString);
 						boardNum = gameNum;
-						newGame(boardNum);
-						//table.changeSelection(0, 0, false, false);
+						game.newGame(boardPrefSize, boardDifficulty, boardNum);
+						newGame();
 					}
 					catch(NumberFormatException nfe)
 					{
@@ -284,7 +280,7 @@ public class KaboomGUI extends JFrame implements Observer {
 			{
 				JOptionPane.showMessageDialog(
 						null,
-						getHighScores(),
+						hallOfFame.getHighScores(),
 						"Hall of Fame",
 						JOptionPane.PLAIN_MESSAGE
 						);
@@ -294,6 +290,18 @@ public class KaboomGUI extends JFrame implements Observer {
 		});
 		mnuGame.add(mnuScores);
 
+		JMenuItem mnuPeek = new JMenuItem("Peek");
+		mnuPeek.setAccelerator(KeyStroke.getKeyStroke('P', ActionEvent.ALT_MASK));
+		mnuPeek.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				game.peek();
+				repaint();
+			}
+		});
+		mnuGame.add(mnuPeek);
+		
 		JMenuItem mnuCheat = new JMenuItem("Cheat");
 		mnuCheat.setAccelerator(KeyStroke.getKeyStroke('C', ActionEvent.ALT_MASK));
 		mnuCheat.addActionListener(new ActionListener()
@@ -306,6 +314,22 @@ public class KaboomGUI extends JFrame implements Observer {
 		});
 		mnuGame.add(mnuCheat);
 
+		JMenuItem mnuAbout = new JMenuItem("About");
+		mnuAbout.setAccelerator(KeyStroke.getKeyStroke('A', ActionEvent.ALT_MASK));
+		mnuAbout.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JOptionPane.showMessageDialog(
+						null,
+						"Kaboom Game by Erik Owen",
+						"About",
+						JOptionPane.INFORMATION_MESSAGE
+						);
+			}
+		});
+		mnuGame.add(mnuAbout);
+		
 		JMenuItem mnuQuit = new JMenuItem("Quit");
 		mnuQuit.setAccelerator(KeyStroke.getKeyStroke('Q', ActionEvent.ALT_MASK));
 		mnuQuit.addActionListener(new ActionListener()
@@ -316,16 +340,7 @@ public class KaboomGUI extends JFrame implements Observer {
 			}
 		});
 		mnuGame.add(mnuQuit);
-		setJMenuBar(menuBar);        
-
-		// Create a panel for the status information
-		//		statusPane = new JPanel();
-		//		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
-		//				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs()
-		//				+ "      " + game.getTimerCount());
-		//		statusPane.add(gameStatus);
-		//		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//		getContentPane().add(statusPane);
+		setJMenuBar(menuBar);
 
 		// Define the characteristics of the table that shows the game board        
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -348,7 +363,7 @@ public class KaboomGUI extends JFrame implements Observer {
 				// Is it a left mouse click?
 				if (SwingUtilities.isLeftMouseButton(ev)) 
 				{
-					selectCell(row, col);
+					game.takeTurn(row, col);
 				}
 				else if(SwingUtilities.isRightMouseButton(ev))
 				{
@@ -374,7 +389,7 @@ public class KaboomGUI extends JFrame implements Observer {
 				{
 					int col = table.getSelectedColumn();
 					int row = table.getSelectedRow();
-					selectCell(row, col);
+					game.takeTurn(row, col);
 				}
 				repaint();
 			}
@@ -406,47 +421,14 @@ public class KaboomGUI extends JFrame implements Observer {
 		}
 	}
 
-	private void selectCell(int row, int col)
-	{   
-		game.takeTurn(row, col);
-	}
-
 	/**
 	 * Start a new game by putting new values in the board
 	 */
-	private void newGame(int gameNum)
+	private void newGame()
 	{
-		//getContentPane().remove(table);
-		this.boardNum = gameNum;
-		this.game.newGame(boardPrefSize, boardDifficulty, boardNum);
-		super.setTitle("Kaboom - board " + this.boardNum);
-		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
-				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs() +
-				"      " + game.getTimerCount());
-		this.statusPane.removeAll();
-		this.statusPane.add(gameStatus);
-		this.statusPane.revalidate();
-		this.statusPane.repaint();
-
-		this.model = this.game.getBoard();
-		this.table = new JTable(model);
-		//		this.model = new GameTableModel(game);
-		//		this.table.setModel(model);
-
-		repaint();
-
-
-	}
-
-	/**
-	 * Getter method to get the high scores.
-	 * 
-	 * @return String of the top five high scores.
-	 */
-	public String getHighScores()
-	{
-		//TODO
-		return "";
+		model = game.getBoard();
+		table.setModel(model);
+		setTitle("Kaboom - board " + boardNum);
 	}
 
 	/**
@@ -463,29 +445,8 @@ public class KaboomGUI extends JFrame implements Observer {
 			frame = new KaboomGUI();
 			frame.run();   // do the layout of widgets
 		}
-		catch (ClassNotFoundException e)
+		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (InstantiationException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (UnsupportedLookAndFeelException e)
-		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
