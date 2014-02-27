@@ -46,38 +46,38 @@ import javax.swing.table.TableCellRenderer;
  */
 public class KaboomGUI extends JFrame implements Observer {
 
-    private JLabel gameStatus = null;
-    private JMenuBar menuBar;
-    private JTable table;
-    private JPanel statusPane;
-    private KaboomBoard model;
-    private ImageIcon [] images = new ImageIcon[10];
+	private JLabel gameStatus = null;
+	private JMenuBar menuBar;
+	private JTable table;
+	private JPanel statusPane;
+	private KaboomBoard model;
+	private ImageIcon [] images = new ImageIcon[10];
 	private int boardNum, boardPrefSize, boardDifficulty;
-    private Preferences prefs;
-    private HighScores hallOfFame;
-    private KaboomGame game;
-    private int kTileWidth = 65;
-    private int kTileHeight = 43;
-    private static final int kNumBoards = 5000, kSecondsInAMin = 60,
-        kMaxNameLength = 20, kHiddenEraseHighScores = 0;
-    
+	private Preferences prefs;
+	private HighScores hallOfFame;
+	private KaboomGame game;
+	private int kTileWidth = 65;
+	private int kTileHeight = 43;
+	private static final int kNumBoards = 5000, kSecondsInAMin = 60,
+			kMaxNameLength = 20, kHiddenEraseHighScores = 0;
+
 	public KaboomGUI() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-        this.boardNum = new Random().nextInt(kNumBoards);
-        this.prefs = new Preferences();
-        this.hallOfFame = new HighScores();
-        this.boardPrefSize = prefs.getDefaultBoardSize();
-        this.boardDifficulty = prefs.getDefaultDifficulty();
-       
-        this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty,
-            this.boardNum);
-        
-        UIManager.setLookAndFeel(
-                UIManager.getSystemLookAndFeelClassName());
+		this.boardNum = new Random().nextInt(kNumBoards);
+		this.prefs = new Preferences();
+		this.hallOfFame = new HighScores();
+		this.boardPrefSize = prefs.getDefaultBoardSize();
+		this.boardDifficulty = prefs.getDefaultDifficulty();
 
-        super.setTitle("Kaboom - board " + this.boardNum);
-        
-        this.game.addObserver(this);
+		this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty,
+				this.boardNum);
+
+		UIManager.setLookAndFeel(
+				UIManager.getSystemLookAndFeelClassName());
+
+		super.setTitle("Kaboom - board " + this.boardNum);
+
+		this.game.addObserver(this);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class KaboomGUI extends JFrame implements Observer {
 			}
 		}
 	}
-	
+
 	/** Place all the Swing widgets in the frame of this GUI.
 	 * @post the GUI is visible.  
 	 */
@@ -178,9 +178,9 @@ public class KaboomGUI extends JFrame implements Observer {
 					component.setOpaque(false);
 					component.setForeground(Color.WHITE);
 					component.setFont(component.getFont().deriveFont(32.0f));
-					
+
 				}
-				
+
 				return comp;
 			}
 
@@ -212,8 +212,10 @@ public class KaboomGUI extends JFrame implements Observer {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				newGame(boardNum);
-				//table.changeSelection(0, 0, false, false);
+				game.restart();
+				model = game.getBoard();
+				table.setModel(model);
+				setTitle("Kaboom - board " + boardNum);
 			}
 		});
 		mnuGame.add(mnuRestart);
@@ -233,8 +235,11 @@ public class KaboomGUI extends JFrame implements Observer {
 				{
 					boardNum++;
 				}
-				newGame(boardNum);
-				//table.changeSelection(0, 0, false, false);
+				
+				game.newGame(boardPrefSize, boardDifficulty, boardNum);
+				model = game.getBoard();
+				table.setModel(model);
+				setTitle("Kaboom - board " + boardNum);
 			}
 		});
 		mnuGame.add(mnuNew);
@@ -314,13 +319,13 @@ public class KaboomGUI extends JFrame implements Observer {
 		setJMenuBar(menuBar);        
 
 		// Create a panel for the status information
-//		statusPane = new JPanel();
-//		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
-//				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs()
-//				+ "      " + game.getTimerCount());
-//		statusPane.add(gameStatus);
-//		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		getContentPane().add(statusPane);
+		//		statusPane = new JPanel();
+		//		gameStatus = new JLabel("Moves: " + game.getMoveCount() +
+		//				"      " + "Flags: " + game.getFlagCount() + "/" + game.getNumBombs()
+		//				+ "      " + game.getTimerCount());
+		//		statusPane.add(gameStatus);
+		//		statusPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//		getContentPane().add(statusPane);
 
 		// Define the characteristics of the table that shows the game board        
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -329,7 +334,7 @@ public class KaboomGUI extends JFrame implements Observer {
 
 		table.setOpaque(false);
 		table.setShowGrid(false);
-		
+
 		table.setAlignmentX(Component.CENTER_ALIGNMENT);
 		getContentPane().add(table);
 
@@ -357,7 +362,7 @@ public class KaboomGUI extends JFrame implements Observer {
 				repaint();
 			}
 		}
-		);
+				);
 
 		table.addKeyListener(new KeyAdapter()
 		{
@@ -425,8 +430,8 @@ public class KaboomGUI extends JFrame implements Observer {
 
 		this.model = this.game.getBoard();
 		this.table = new JTable(model);
-//		this.model = new GameTableModel(game);
-//		this.table.setModel(model);
+		//		this.model = new GameTableModel(game);
+		//		this.table.setModel(model);
 
 		repaint();
 
