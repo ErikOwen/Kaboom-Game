@@ -36,32 +36,38 @@ public class KaboomCellRenderer extends DefaultTableCellRenderer
      */
     public void setValue(Object value)
     {
-    	KaboomCell curCell = (KaboomCell) value;
-    	KaboomPieces piece = curCell.getCellState();
+        KaboomCell curCell = (KaboomCell) value;
+        KaboomPieces piece = curCell.getCellState();
         //KaboomPieces piece = (KaboomPieces) value;
         
         setIcon(null);
         setText(null);
         
-        if(/*piece == KaboomPieces.flagged*/curCell.isFlagged())
+        /*Determines if the current cell is flagged*/
+        if(curCell.isFlagged())
         {
             setIcon(images[kFlagged]);
         }
+        /*Determines if the current cell is covered*/
         else if(piece == KaboomPieces.covered)
         {
             setIcon(images[kCovered]);
         }
+        /*Determines if the current cell is a bomb*/
         else if(piece == KaboomPieces.bomb)
         {
             setIcon(images[kBomb]);
         }
+        /*Determines if the current cell is a hit bomb*/
         else if(piece == KaboomPieces.bombHit)
         {
             setIcon(images[kBombHit]);
         }
-        else if(piece == KaboomPieces.empty && curCell.getNumBombsNear() > 0) {
-        	setText(new Integer(curCell.getNumBombsNear()).toString());
-        	
+        /*Determines if the current cell is empty and has no neighboring bombs*/
+        else if(piece == KaboomPieces.empty && curCell.getNumBombsNear() > 0)
+        {
+            setText(new Integer(curCell.getNumBombsNear()).toString());
+            
         }
 
     }

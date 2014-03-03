@@ -20,7 +20,7 @@ public class KaboomGame extends Observable
     private boolean hasLost, hasWon;
     private static final int kMillisecondsPerSecond = 1000;
     public static final int kUpdateBoardLoss = 1, kUpdateBoardWin = 2, 
-        kUpdateTimer = 3;
+    kUpdateTimer = 3;
     
     /**
      * Constructor to instantiate a KaboomGame object.
