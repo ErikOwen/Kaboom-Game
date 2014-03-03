@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -28,6 +29,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
@@ -36,6 +38,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
+
+import org.ini4j.Ini;
 
 /**
  * GUI version of the Kaboom Game.
@@ -59,25 +63,32 @@ public class KaboomGUI extends JFrame implements Observer {
 	private int kTileWidth = 65;
 	private int kTileHeight = 43;
 	private static final int kNumBoards = 5000, kSecondsInAMin = 60,
-			kMaxNameLength = 20, kHiddenEraseHighScores = 0;
+			kMaxNameLength = 20, kHiddenEraseHighScores = 0, columnGapPx = 11;;
 
-	public KaboomGUI() throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException
+	public KaboomGUI() 
 	{
-		this.boardNum = new Random().nextInt(kNumBoards);
-		this.prefs = new Preferences();
-		this.hallOfFame = new HighScores();
-		this.boardPrefSize = prefs.getDefaultBoardSize();
-		this.boardDifficulty = prefs.getDefaultDifficulty();
+		try
+		{
+			this.boardNum = new Random().nextInt(kNumBoards);
+			this.prefs = new Preferences();
+			this.hallOfFame = new HighScores();
+			this.boardPrefSize = prefs.getDefaultBoardSize();
+			this.boardDifficulty = prefs.getDefaultDifficulty();
 
-		this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty,
-				this.boardNum);
+			this.game = new KaboomGame(this.boardPrefSize, this.boardDifficulty,
+					this.boardNum);
 
-		UIManager.setLookAndFeel(
-				UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(
+					UIManager.getSystemLookAndFeelClassName());
 
-		super.setTitle("Kaboom - board " + this.boardNum);
+			super.setTitle("Kaboom - board " + this.boardNum);
 
-		this.game.addObserver(this);
+			this.game.addObserver(this);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -204,7 +215,9 @@ public class KaboomGUI extends JFrame implements Observer {
 		//Add a menubar
 		menuBar = new javax.swing.JMenuBar();
 		JMenu mnuGame = new JMenu("Game");
+		JMenu mnuEdit = new JMenu("Edit");
 		menuBar.add(mnuGame);
+		menuBar.add(mnuEdit);
 
 		JMenuItem mnuRestart = new JMenuItem("Restart");
 		mnuRestart.setAccelerator(KeyStroke.getKeyStroke('R', ActionEvent.ALT_MASK));
@@ -262,6 +275,7 @@ public class KaboomGUI extends JFrame implements Observer {
 						boardNum = gameNum;
 						game.newGame(boardPrefSize, boardDifficulty, boardNum);
 						newGame();
+						table.changeSelection(0, 0, false, false);
 					}
 					catch(NumberFormatException nfe)
 					{
@@ -340,8 +354,20 @@ public class KaboomGUI extends JFrame implements Observer {
 			}
 		});
 		mnuGame.add(mnuQuit);
-		setJMenuBar(menuBar);
 
+		JMenuItem mnuPrefs = new JMenuItem("Preferences");
+		mnuPrefs.setAccelerator(KeyStroke.getKeyStroke('F', ActionEvent.ALT_MASK));
+		mnuPrefs.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				handlePrefsMenuButton(); 
+			}
+		});
+		mnuEdit.add(mnuPrefs);
+		
+		setJMenuBar(menuBar);
+		
 		// Define the characteristics of the table that shows the game board        
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setCellSelectionEnabled(false);
@@ -367,13 +393,12 @@ public class KaboomGUI extends JFrame implements Observer {
 				}
 				else if(SwingUtilities.isRightMouseButton(ev))
 				{
+					//System.out.println(ev.getPoint().getX());
 					row = (int) (ev.getPoint().getY()/kTileHeight);
-					col = (int) (ev.getPoint().getX()/kTileWidth);
+					col = (int) (ev.getPoint().getX()/(kTileWidth + columnGapPx));
 					game.toggleFlag(row, col);
 				}
-
-				System.out.println("Row: " + row);
-				System.out.println("Column: " + col);
+				
 				repaint();
 			}
 		}
@@ -403,6 +428,80 @@ public class KaboomGUI extends JFrame implements Observer {
 
 	}
 
+	private void addButtonListeners(final JRadioButton curButton, final JRadioButton [] buttons) {
+		curButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(JRadioButton but : buttons)
+				{
+					but.setSelected(false);
+				}
+				curButton.setSelected(true);
+			}
+			
+		});
+	}
+	
+	private void handlePrefsMenuButton()
+	{	
+        final Ini.Section boardSizeSection = this.prefs.getBoardSizes();
+        final Ini.Section difficultiesSection = this.prefs.getDifficulties();
+		JRadioButton smallBoard = new JRadioButton("small");
+		JRadioButton mediumBoard = new JRadioButton("medium");
+		JRadioButton largeBoard = new JRadioButton("large");
+		JRadioButton easyDif = new JRadioButton("easy");
+		JRadioButton moderateDif = new JRadioButton("moderate");
+		JRadioButton hardDif = new JRadioButton("hard");
+		
+		JRadioButton [] boardGroup = {smallBoard, mediumBoard, largeBoard};
+		JRadioButton [] difficultyGroup = {easyDif, moderateDif, hardDif};
+		
+		for(JRadioButton curBoardButt : boardGroup)
+		{
+			addButtonListeners(curBoardButt, boardGroup);
+		}
+		
+		for(JRadioButton curDiffButt : difficultyGroup)
+		{
+			addButtonListeners(curDiffButt, difficultyGroup);
+		}
+		
+		smallBoard.setSelected(true);
+		easyDif.setSelected(true);
+		
+		final JComponent[] inputs = new JComponent[] {new JLabel("Board Size"),
+	         smallBoard, mediumBoard,largeBoard, new JLabel("Difficulty"),
+	         easyDif,moderateDif, hardDif};
+		
+		int result = JOptionPane.showConfirmDialog(null, inputs,
+	        "KaboomPreferences", JOptionPane.YES_OPTION);
+		
+		if(result == JOptionPane.OK_OPTION)
+		{
+			for(JRadioButton butt : boardGroup)
+			{
+				if(butt.isSelected())
+				{
+					this.boardPrefSize = Integer.parseInt(boardSizeSection.get(
+					    butt.getText()));
+				}
+			}
+			for(JRadioButton butt : difficultyGroup)
+			{
+				if(butt.isSelected())
+				{
+					this.boardDifficulty = Integer.parseInt(
+					    difficultiesSection.get(butt.getText()));
+				}
+			}
+			
+			this.game.newGame(this.boardPrefSize, this.boardDifficulty, 
+			    this.boardNum);
+			this.game.getBoard().fireTableChanged(null);
+			newGame();
+		}
+	}
+	
 	protected void loadImages()
 	{
 		KaboomPieces [] lights = KaboomPieces.values();
@@ -431,6 +530,11 @@ public class KaboomGUI extends JFrame implements Observer {
 		setTitle("Kaboom - board " + boardNum);
 	}
 
+	public String getHighScores()
+	{
+		return this.hallOfFame.getHighScores();
+	}
+	
 	/**
 	 * Driver method used to run the CollapseGUI.
 	 * 
